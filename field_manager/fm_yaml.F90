@@ -171,7 +171,7 @@ contains
 !!
 !> Given an optional filename, construct the fmTable type using routines from the yaml parser.
 !! @returns the fmTable type
-function construct_fmTable_t(filename) result(this)
+function construct_fmTable_t(filename) result(this) bind(c)
   type (fmTable_t)                       :: this     !< the field table
   character(len=*), intent(in), optional :: filename !< the name of the yaml file
 
@@ -188,7 +188,7 @@ end function construct_fmTable_t
 !!
 !> Given the appropriate block id, construct the fmType type using routines from the yaml parser.
 !! @returns the fmType type
-function construct_fmType_t(in_yfid, in_id) result(this)
+function construct_fmType_t(in_yfid, in_id) result(this) bind(c)
   type (fmType_t)     :: this    !< the type object
   integer, intent(in) :: in_yfid !< yaml file id
   integer, intent(in) :: in_id   !< block_id of type from parent
@@ -203,7 +203,7 @@ end function construct_fmType_t
 !!
 !> Given the appropriate block id, construct the fmModel type using routines from the yaml parser.
 !! @returns the fmModel type
-function construct_fmModel_t(in_yfid, in_id) result(this)
+function construct_fmModel_t(in_yfid, in_id) result(this) bind(c)
   type (fmModel_t)    :: this    !< the model object
   integer, intent(in) :: in_yfid !< yaml file id
   integer, intent(in) :: in_id   !< block_id of model from parent
@@ -218,7 +218,7 @@ end function construct_fmModel_t
 !!
 !> Given the appropriate block id, construct the fmVar type using routines from the yaml parser.
 !! @returns the fmVar type
-function construct_fmVar_t(in_yfid, in_id) result(this)
+function construct_fmVar_t(in_yfid, in_id) result(this) bind(c)
   type (fmVar_t)      :: this    !< the var object
   integer, intent(in) :: in_yfid !< yaml file id
   integer, intent(in) :: in_id   !< block_id of var from parent
@@ -233,7 +233,7 @@ end function construct_fmVar_t
 !!
 !> Given the appropriate block id, construct the fmAttr type using routines from the yaml parser.
 !! @returns the fmAttr type
-function construct_fmAttr_t(in_yfid, in_id) result(this)
+function construct_fmAttr_t(in_yfid, in_id) result(this) bind(c)
   type (fmAttr_t)      :: this    !< the var object
   integer, intent(in) :: in_yfid !< yaml file id
   integer, intent(in) :: in_id   !< block_id of var from parent
@@ -245,7 +245,7 @@ end function construct_fmAttr_t
 !> @brief Subroutine to destruct the fmTable_t type.
 !!
 !> Deallocates this type's allocatables and calls the destruct routine for this type's children.
-subroutine destruct_fmTable_t(this)
+subroutine destruct_fmTable_t(this) bind(c)
   class (fmTable_t) :: this       !< the field table
 
   if (allocated(this%child_ids)) deallocate(this%child_ids)
@@ -260,7 +260,7 @@ end subroutine destruct_fmTable_t
 !> @brief Subroutine to destruct the fmType_t type.
 !!
 !> Deallocates this type's allocatables and calls the destruct routine for this type's children.
-subroutine destruct_fmType_t(this)
+subroutine destruct_fmType_t(this) bind(c)
   class (fmType_t) :: this !< type object
 
   if (allocated(this%name)) deallocate(this%name)
@@ -276,7 +276,7 @@ end subroutine destruct_fmType_t
 !> @brief Subroutine to destruct the fmModel_t type.
 !!
 !> Deallocates this type's allocatables and calls the destruct routine for this type's children.
-subroutine destruct_fmModel_t(this)
+subroutine destruct_fmModel_t(this) bind(c)
   class (fmModel_t) :: this !< model object
 
   if (allocated(this%name)) deallocate(this%name)
@@ -292,7 +292,7 @@ end subroutine destruct_fmModel_t
 !> @brief Subroutine to destruct the fmVar_t type.
 !!
 !> Deallocates this type's allocatables and calls the destruct routine for this type's children.
-subroutine destruct_fmVar_t(this)
+subroutine destruct_fmVar_t(this) bind(c)
   class (fmVar_t) :: this !< variable object
 
   if (allocated(this%name)) deallocate(this%name)
@@ -311,7 +311,7 @@ end subroutine destruct_fmVar_t
 !> @brief Subroutine to destruct the fmAttr_t type.
 !!
 !> Deallocates this type's allocatables.
-subroutine destruct_fmAttr_t(this)
+subroutine destruct_fmAttr_t(this) bind(c)
   class (fmAttr_t) :: this !< variable object
 
   if (allocated(this%paramname)) deallocate(this%paramname)
@@ -320,14 +320,14 @@ subroutine destruct_fmAttr_t(this)
 end subroutine destruct_fmAttr_t
 
 !> @brief gets the block ids for children of this type.
-subroutine get_blocks_fmTable_t(this)
+subroutine get_blocks_fmTable_t(this) bind(c)
   class (fmTable_t) :: this !< field table object
 
   call get_block_ids(this%yfid, this%blockname, this%child_ids)
 end subroutine get_blocks_fmTable_t
 
 !> @brief gets the block ids for children of this type.
-subroutine get_blocks_fmType_t(this)
+subroutine get_blocks_fmType_t(this) bind(c)
   class (fmType_t) :: this !< type object
 
   call get_block_ids(this%yfid, this%blockname, this%child_ids, this%id)
@@ -335,7 +335,7 @@ end subroutine get_blocks_fmType_t
 
 !> @brief Gets the name of this field type and adds it to the fmType_t.
 !! Note that there should only be one key value pair (which is why the get_key_value call uses key_ids(1)).
-subroutine get_name_fmType_t(this)
+subroutine get_name_fmType_t(this) bind(c)
   class (fmType_t)     :: this !< type object
   integer              :: nkeys !< numkeys
   integer, allocatable :: key_ids(:) !< array of key ids
@@ -349,7 +349,7 @@ subroutine get_name_fmType_t(this)
 end subroutine get_name_fmType_t
 
 !> @brief gets the block ids for children of this type.
-subroutine get_blocks_fmModel_t(this)
+subroutine get_blocks_fmModel_t(this) bind(c)
   class (fmModel_t) :: this !< model object
 
   call get_block_ids(this%yfid, this%blockname, this%child_ids, this%id)
@@ -357,7 +357,7 @@ end subroutine get_blocks_fmModel_t
 
 !> @brief Gets the name of this model and adds it to the fmModel_t.
 !! Note that there should only be one key value pair (which is why the get_key_value call uses key_ids(1)).
-subroutine get_name_fmModel_t(this)
+subroutine get_name_fmModel_t(this) bind(c)
   class (fmModel_t)    :: this !< model object
   integer              :: nkeys !< numkeys
   integer, allocatable :: key_ids(:) !< array of key ids
@@ -371,7 +371,7 @@ subroutine get_name_fmModel_t(this)
 end subroutine get_name_fmModel_t
 
 !> @brief gets the block ids for children of this type.
-subroutine get_blocks_fmVar_t(this)
+subroutine get_blocks_fmVar_t(this) bind(c)
   class (fmVar_t) :: this !< variable object
 
   call get_block_ids(this%yfid, this%blockname, this%child_ids, this%id)
@@ -380,7 +380,7 @@ end subroutine get_blocks_fmVar_t
 !> @brief Gets the name of this variable as well as the associated parameters and adds them to fmVar_t.
 !! Note that the length of the character arrays for the parameter names and values are allocatable.
 !! This is why they are read twice.
-subroutine get_name_fmVar_t(this)
+subroutine get_name_fmVar_t(this) bind(c)
   class (fmVar_t)      :: this       !< variable object
   integer              :: nkeys      !< numkeys
   integer              :: maxln      !< max string length names
@@ -421,7 +421,7 @@ end subroutine get_name_fmVar_t
 !> @brief Gets the name of the parameter and the key value pairs for the subparameters and adds them to fmAttr_t.
 !! Note that the length of the character arrays for the subparameter names and values are allocatable.
 !! This is why they are read twice.
-subroutine get_name_fmAttr_t(this)
+subroutine get_name_fmAttr_t(this) bind(c)
   class (fmAttr_t)     :: this       !< variable object
   integer              :: nkeys      !< numkeys
   integer              :: maxln      !< max string length names
@@ -459,7 +459,7 @@ end subroutine get_name_fmAttr_t
 !!
 !! Note that this includes the creation function as well as the routines necessary to populate the child type,
 !! including calling the create_children routine for the child type (this makes it somewhat recursive).
-subroutine create_children_fmTable_t(this)
+subroutine create_children_fmTable_t(this) bind(c)
   class (fmTable_t) :: this !< the field table
 
   allocate(this%children(this%nchildren))
@@ -475,7 +475,7 @@ end subroutine create_children_fmTable_t
 !!
 !! Note that this includes the creation function as well as the routines necessary to populate the child type,
 !! including calling the create_children routine for the child type (this makes it somewhat recursive).
-subroutine create_children_fmType_t(this)
+subroutine create_children_fmType_t(this) bind(c)
   class (fmType_t) :: this !< type object
 
   allocate(this%children(this%nchildren))
@@ -491,7 +491,7 @@ end subroutine create_children_fmType_t
 !!
 !! Note that this includes the creation function as well as the routines necessary to populate the child type,
 !! including calling the create_children routine for the child type (this makes it somewhat recursive).
-subroutine create_children_fmModel_t(this)
+subroutine create_children_fmModel_t(this) bind(c)
   class (fmModel_t) :: this !< model object
 
   allocate(this%children(this%nchildren))
@@ -506,7 +506,7 @@ end subroutine create_children_fmModel_t
 !> @brief Creates the children (fmAttr_t) of this type (fmVar_t).
 !!
 !! Note that this includes the creation function as well as the routines necessary to populate the child type.
-subroutine create_children_fmVar_t(this)
+subroutine create_children_fmVar_t(this) bind(c)
   class (fmVar_t) :: this !< var object
 
   if (this%nchildren .gt. 0) then

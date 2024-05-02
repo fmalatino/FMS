@@ -586,7 +586,7 @@ end subroutine field_manager_init
 #ifdef use_yaml
 
 !> @brief Routine to read and parse the field table yaml
-subroutine read_field_table_yaml(nfields, table_name)
+subroutine read_field_table_yaml(nfields, table_name) bind(c)
 integer,                      intent(out), optional :: nfields    !< number of fields
 character(len=fm_string_len), intent(in),  optional :: table_name !< Name of the field table, default
 
@@ -718,7 +718,7 @@ end subroutine read_field_table_yaml
 !! method_name and is given the value or values in
 !! val_name_in. If there is more than 1 value in
 !! val_name_in, these values should be  comma-separated.
-subroutine new_name_yaml ( list_name, method_name_in , val_name_in)
+subroutine new_name_yaml ( list_name, method_name_in , val_name_in) bind(c)
 character(len=*), intent(in)    :: list_name !< The name of the field that is of interest here.
 character(len=*), intent(in)    :: method_name_in !< The name of the method that values are
                                                   !! being supplied for.
@@ -1173,7 +1173,7 @@ call mpp_error(FATAL,trim(error_header)//' Error reading field table. Record = '
 
 end subroutine read_field_table_legacy
 
-subroutine check_for_name_duplication
+subroutine check_for_name_duplication () bind(c)
 integer :: i
 
 ! Check that name is unique amoung fields of the same field_type and model.
@@ -1200,7 +1200,7 @@ end subroutine check_for_name_duplication
 !! method_name and is given the value or values in
 !! val_name_in. If there is more than 1 value in
 !! val_name_in, these values should be  comma-separated.
-subroutine new_name ( list_name, method_name_in , val_name_in)
+subroutine new_name ( list_name, method_name_in , val_name_in) bind(c)
 character(len=*), intent(in)    :: list_name !< The name of the field that is of interest here.
 character(len=*), intent(in)    :: method_name_in !< The name of the method that values are
                                                   !! being supplied for.
@@ -1384,7 +1384,7 @@ end subroutine new_name
 !!
 !> This subroutine deallocates allocated variables (if allocated) and
 !! changes the initialized flag to false.
-subroutine field_manager_end
+subroutine field_manager_end () bind(c)
 integer :: j
 
 module_is_initialized = .false.
@@ -1399,7 +1399,7 @@ end subroutine field_manager_end
 !> @brief A routine to strip whitespace from the start of character strings.
 !!
 !> This subroutine removes spaces and tabs from the start of a character string.
-subroutine strip_front_blanks(name)
+subroutine strip_front_blanks(name) bind(c)
 
 character(len=*), intent(inout) :: name !< name to remove whitespace from
 
@@ -1412,7 +1412,7 @@ end subroutine strip_front_blanks
 !! return the index of the field within the field manager. This index
 !! can be used to access other information from the field manager.
 !! @returns The index of the field corresponding to field_name.
-function find_field_index_old(model, field_name)
+function find_field_index_old(model, field_name) bind(c)
 
 integer                      :: find_field_index_old
 integer,          intent(in) :: model !< The number indicating which model is used.
@@ -1432,7 +1432,7 @@ enddo
 end function find_field_index_old
 
 !> @returns index of the field corresponding to field_name
-function find_field_index_new(field_name)
+function find_field_index_new(field_name) bind(c)
 
 integer                      :: find_field_index_new
 character(len=*), intent(in) :: field_name !< The path to the name of the field that an index is
@@ -1453,7 +1453,7 @@ end function find_field_index_new
 !! @code{.F90}
 !! call get_field_info( n,fld_type,fld_name,model,num_methods )
 !! @endcode
-subroutine get_field_info(n,fld_type,fld_name,model,num_methods)
+subroutine get_field_info(n,fld_type,fld_name,model,num_methods) bind(c)
 integer,          intent(in)  :: n !< index of field
 character (len=*),intent(out) :: fld_type !< field type
 character (len=*),intent(out) :: fld_name !< name of the field
@@ -1509,7 +1509,7 @@ end subroutine get_field_methods
 !> @returns The number of values that have been decoded. This allows
 !! a user to define a large array and fill it partially with
 !! values from a list. This should be the size of the value array.
-function parse_integers ( text, label, values ) result (parse)
+function parse_integers ( text, label, values ) result (parse) bind(c)
 character(len=*), intent(in)  :: text !< The text string from which the values will be parsed.
 character(len=*), intent(in)  :: label !< A label which describes the values being decoded.
 integer,          intent(out) :: values(:) !< The value or values that have been decoded.
@@ -1517,7 +1517,7 @@ integer,          intent(out) :: values(:) !< The value or values that have been
 include 'parse.inc'
 end function parse_integers
 
-function parse_strings ( text, label, values ) result (parse)
+function parse_strings ( text, label, values ) result (parse) bind(c)
 character(len=*), intent(in)  :: text !< The text string from which the values will be parsed.
 character(len=*), intent(in)  :: label !< A label which describes the values being decoded.
 character(len=*), intent(out) :: values(:) !< The value or values that have been decoded.
@@ -1525,7 +1525,7 @@ character(len=*), intent(out) :: values(:) !< The value or values that have been
 include 'parse.inc'
 end function parse_strings
 
-function parse_integer ( text, label, parse_ival ) result (parse)
+function parse_integer ( text, label, parse_ival ) result (parse) bind(c)
 character(len=*), intent(in)  :: text !< The text string from which the values will be parsed.
 character(len=*), intent(in)  :: label !< A label which describes the values being decoded.
 integer,          intent(out) :: parse_ival !< The value or values that have been decoded.
@@ -1537,7 +1537,7 @@ integer :: values(1)
    if (parse > 0) parse_ival = values(1)
 end function parse_integer
 
-function parse_string ( text, label, parse_sval ) result (parse)
+function parse_string ( text, label, parse_sval ) result (parse) bind(c)
 character(len=*), intent(in)  :: text !< The text string from which the values will be parsed.
 character(len=*), intent(in)  :: label !< A label which describes the values being decoded.
 character(len=*), intent(out) :: parse_sval !< The value or values that have been decoded.
@@ -1753,7 +1753,7 @@ end function dump_list
 !! a path and base. The base is the last field within name, while the
 !! path is the preceding section of name. The base string can then be
 !! used to query for values associated with name.
-subroutine find_base(name, path, base)
+subroutine find_base(name, path, base) bind(c)
 
 character(len=*), intent(in)  :: name !< list name for a field
 character(len=*), intent(out) :: path !< path of the base field
@@ -1855,7 +1855,7 @@ end function find_field
 !! rest. The head is the first field within name, while rest is the remaining
 !! section of name. The head string can then be used to find other fields that
 !! may be associated with name.
-subroutine find_head(name, head, rest)
+subroutine find_head(name, head, rest) bind(c)
 
 character(len=*), intent(in)  :: name !< The name of a field of interest
 character(len=*), intent(out) :: head !< the first field within name
@@ -1990,7 +1990,7 @@ end function find_list
 !! will search for name starting from the current list.
 !! @return A flag to indicate operation success, true = no errors
 function fm_change_list(name)                                        &
-        result (success)
+        result (success) bind(c)
 logical        :: success
 character(len=*), intent(in)  :: name !< name of a list to change to
 
@@ -2022,7 +2022,7 @@ end function fm_change_list
 !! This function should be used in conjunction with fm_return_root.
 !! @return A flag to indicate operation success, true = no errors
 function  fm_change_root(name)                                        &
-          result (success)
+          result (success) bind(c)
 logical        :: success
 character(len=*), intent(in)  :: name !< name of the field which the user wishes to become the root.
 
@@ -2072,7 +2072,7 @@ end function  fm_change_root
 !! If recursive is present and .true., then this function writes out the
 !! contents of any subfields associated with the field named "name".
 !! @return A flag to indicate operation success, true = no errors
-logical function  fm_dump_list(name, recursive, unit) result (success)
+logical function  fm_dump_list(name, recursive, unit) result (success) bind(c)
   character(len=*), intent(in)  :: name !< The name of the field for which output is requested.
   logical, intent(in), optional :: recursive !< If present and .true., then a recursive listing of
                                              !! fields will be performed.
@@ -2117,7 +2117,7 @@ end function  fm_dump_list
 !! and returns true if the list exists, false otherwise.
 !! @return A flag to indicate operation success, true = no errors
 function fm_exists(name)                                                &
-        result (success)
+        result (success) bind(c)
 logical        :: success
 character(len=*), intent(in) :: name !< The name of the field that is being queried
 
@@ -2140,7 +2140,7 @@ end function fm_exists
 !! Otherwise the named field will be relative to the current list.
 !> @returns index of the named field if it exists, otherwise the parameter NO_FIELD
 function  fm_get_index(name)                        &
-          result (index)
+          result (index) bind(c)
 integer        :: index
 character(len=*), intent(in) :: name !< The name of a field that the user wishes to get an index for
 
@@ -2218,7 +2218,7 @@ end function  fm_get_current_list
 !! If the named field or entry does not exist, a value of 0 is returned.
 !> @returns The number of elements that the field name has.
 function  fm_get_length(name)                        &
-          result (length)
+          result (length) bind(c)
 integer                      :: length
 character(len=*), intent(in) :: name !< The name of a list or entry that the user wishes to get the length of
 
@@ -2291,7 +2291,7 @@ end function  fm_get_type
 !> @returns A flag to indicate whether the function operated with (false) or without
 !! (true) errors.
 function  fm_get_value_integer(name, get_ival, index)                 &
-          result (success)
+          result (success) bind(c)
 logical                                :: success
 character(len=*), intent(in)           :: name !< The name of a field that the user wishes to get a value for.
 integer,          intent(out)          :: get_ival !< The value associated with the named field.
@@ -2348,7 +2348,7 @@ end function  fm_get_value_integer
 !> @returns A flag to indicate whether the function operated with (false) or without
 !! (true) errors.
 function  fm_get_value_logical(name, get_lval, index)                 &
-          result (success)
+          result (success) bind(c)
 logical                                :: success
 character(len=*), intent(in)           :: name !< The name of a field that the user wishes to get a value for.
 logical,          intent(out)          :: get_lval !< The value associated with the named field
@@ -2406,7 +2406,7 @@ end function  fm_get_value_logical
 !> @returns A flag to indicate whether the function operated with (false) or without
 !! (true) errors.
 function  fm_get_value_string(name, get_sval, index)                 &
-          result (success)
+          result (success) bind(c)
 logical                                :: success
 character(len=*), intent(in)           :: name !< The name of a field that the user wishes to get a value for.
 character(len=*), intent(out)          :: get_sval !< The value associated with the named field
@@ -2577,7 +2577,7 @@ end function fm_loop_over_list_new
 !! error occurs return the parameter NO_FIELD.
 !> @return integer index of the newly created list
 function  fm_new_list(name, create, keep)                        &
-          result (index)
+          result (index) bind(c)
 integer                                :: index
 character(len=*), intent(in)           :: name !< Name of a list that user wishes to create
 logical,          intent(in), optional :: create !< If present and true, create the list if it does not exist
@@ -2638,7 +2638,7 @@ end function  fm_new_list
 !> @brief Assigns a given value to a given field
 !> @returns An index for the named field
 function  fm_new_value_integer(name, new_ival, create, index, append)     &
-          result (field_index)
+          result (field_index) bind(c)
 integer                                :: field_index
 character(len=*), intent(in)           :: name !< The name of a field that the user wishes to create
                                                !! a value for.
@@ -2778,7 +2778,7 @@ end function  fm_new_value_integer
 !> @brief Assigns a given value to a given field
 !> @returns An index for the named field
 function  fm_new_value_logical(name, new_lval, create, index, append) &
-          result (field_index)
+          result (field_index) bind(c)
 integer                                :: field_index
 character(len=*), intent(in)           :: name !< The name of a field that the user wishes to create
                                                !! a value for.
@@ -2912,7 +2912,7 @@ end function  fm_new_value_logical
 !> @brief Assigns a given value to a given field
 !> @returns An index for the named field
 function  fm_new_value_string(name, new_sval, create, index, append) &
-          result (field_index)
+          result (field_index) bind(c)
 integer                                :: field_index
 character(len=*), intent(in)           :: name !< The name of a field that the user wishes to create
                                                !! a value for.
@@ -3046,7 +3046,7 @@ end function  fm_new_value_string
 
 
 !> Resets the loop variable. For use in conjunction with fm_loop_over_list.
-subroutine  fm_reset_loop
+subroutine  fm_reset_loop () bind(c)
 !        Initialize the field manager if needed
 if (.not. module_is_initialized) then
   call initialize_module_variables
@@ -3063,7 +3063,7 @@ end subroutine  fm_reset_loop
 !!
 !! Users should use this routine before leaving their routine if they
 !! previously used fm_change_root.
-subroutine  fm_return_root
+subroutine  fm_return_root () bind(c)
 !        Initialize the field manager if needed
 if (.not. module_is_initialized) then
   call initialize_module_variables
@@ -3118,7 +3118,7 @@ end function get_field
 !! @returns A flag to indicate whether the function operated with (FALSE) or
 !!     without (TRUE) errors.
 function fm_modify_name(oldname, newname)                                        &
-        result (success)
+        result (success) bind(c)
 logical                          :: success
 character(len=*), intent(in)     :: oldname !< The name of a field that the user wishes to change
                                             !! the name of
@@ -3156,7 +3156,7 @@ end function fm_modify_name
 
 !> A function to initialize the values of the pointers. This will remove
 !! all fields and reset the field tree to only the root field.
-subroutine initialize_module_variables
+subroutine initialize_module_variables () bind(c)
   !        Initialize the root field
   integer :: io, ierr !< Error codes when reading the namelist
   integer :: logunit !< Unit number for the log file
@@ -3260,7 +3260,7 @@ end function  make_list
 !> @return A flag to indicate whether the function operated with (FALSE) or
 !! without (TRUE) errors
 function fm_query_method(name, method_name, method_control)                &
-          result (success)
+          result (success) bind(c)
 logical                       :: success
 character(len=*), intent(in)  :: name !< name of a list that the user wishes to change to
 character(len=*), intent(out) :: method_name !< name of a parameter associated with the named field
@@ -3392,7 +3392,7 @@ endif
 end function query_method
 
 !> private function: appends str2 to the end of str1, with length check
-subroutine concat_strings(str1,str2)
+subroutine concat_strings(str1,str2) bind(c)
    character(*), intent(inout) :: str1
    character(*), intent(in)    :: str2
 
@@ -3416,7 +3416,7 @@ end subroutine concat_strings
 !! the old field with a suffix supplied by the user.
 !! @return index of the field that has been created by the copy
 function fm_copy_list(list_name, suffix, create ) &
-         result(index)
+         result(index) bind(c)
 integer        :: index
 character(len=*), intent(in)           :: list_name !< name of a field that the user wishes to copy
 character(len=*), intent(in)           :: suffix !< suffix that will be added to list_name when

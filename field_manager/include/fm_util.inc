@@ -23,7 +23,7 @@
 !#######################################################################
 
 !> Set a real array in the Field Manager tree.
-subroutine FM_UTIL_SET_VALUE_REAL_ARRAY_(name, rval, length, caller, no_overwrite, good_name_list)  !{
+subroutine FM_UTIL_SET_VALUE_REAL_ARRAY_(name, rval, length, caller, no_overwrite, good_name_list) !{
 
 implicit none
 
@@ -183,7 +183,7 @@ end subroutine FM_UTIL_SET_VALUE_REAL_ARRAY_  !}
 
 !> Set a real value in the Field Manager tree.
 subroutine FM_UTIL_SET_VALUE_REAL_(name, rval, caller, index, append, no_create,        &
-     no_overwrite, good_name_list)  !{
+     no_overwrite, good_name_list) bind(c) !{
 
 implicit none
 

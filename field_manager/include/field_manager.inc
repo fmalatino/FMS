@@ -19,7 +19,7 @@
 !> @returns The number of values that have been decoded. This allows
 !! a user to define a large array and fill it partially with
 !! values from a list. This should be the size of the value array.
-function PARSE_REALS_ ( text, label, values ) result (parse)
+function PARSE_REALS_ ( text, label, values ) result (parse) bind(c)
 character(len=*), intent(in)  :: text !< The text string from which the values will be parsed.
 character(len=*), intent(in)  :: label !< A label which describes the values being decoded.
 real(FMS_FM_KIND_), intent(out) :: values(:) !< The value or values that have been decoded.
@@ -27,7 +27,7 @@ real(FMS_FM_KIND_), intent(out) :: values(:) !< The value or values that have be
 include 'parse.inc'
 end function PARSE_REALS_
 
-function PARSE_REAL_ ( text, label, parse_rval ) result (parse)
+function PARSE_REAL_ ( text, label, parse_rval ) result (parse) bind(c)
 character(len=*), intent(in)  :: text !< The text string from which the values will be parsed.
 character(len=*), intent(in)  :: label !< A label which describes the values being decoded.
 real(FMS_FM_KIND_), intent(out) :: parse_rval !< The value or values that have been decoded.
@@ -42,7 +42,7 @@ real(FMS_FM_KIND_) :: values(1)
 !> @returns A flag to indicate whether the function operated with (false) or without
 !! (true) errors.
 function  FM_GET_VALUE_REAL_(name, get_rval, index)                 &
-          result (success)
+          result (success) bind(c)
 logical                                :: success
 character(len=*), intent(in)           :: name  !< The name of a field that the user wishes to get a value for.
 real(FMS_FM_KIND_), intent(out)        :: get_rval !< The value associated with the named field
@@ -100,7 +100,7 @@ end function  FM_GET_VALUE_REAL_
 !> @brief Assigns a given value to a given field
 !> @returns An index for the named field
 function  FM_NEW_VALUE_REAL_(name, new_rval, create, index, append) &
-          result (field_index)
+          result (field_index) bind(c)
 integer                                :: field_index
 character(len=*), intent(in)           :: name !< The name of a field that the user wishes to create
                                                !! a value for.

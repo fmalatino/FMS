@@ -47,7 +47,7 @@ end interface get_grid_version_2
 contains
 
 !> Get lon and lat of three model (target) grids from grid_spec.nc
-subroutine check_grid_sizes(domain_name, Domain, nlon, nlat)
+subroutine check_grid_sizes(domain_name, Domain, nlon, nlat) 
 character(len=12), intent(in) :: domain_name
 type (domain2d),   intent(in) :: Domain
 integer,           intent(in) :: nlon, nlat

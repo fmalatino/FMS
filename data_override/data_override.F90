@@ -148,7 +148,7 @@ end subroutine data_override_init
 !!
 !! This subroutine deallocates any data override domains that have been set.
 subroutine data_override_unset_domains(unset_Atm, unset_Ocean, &
-                                      unset_Ice, unset_Land, must_be_set)
+                                      unset_Ice, unset_Land, must_be_set) bind(c)
   logical, intent(in), optional :: unset_Atm, unset_Ocean, unset_Ice, unset_Land !< Set to true to unset the
                                                                                  !! respective domain
   logical, intent(in), optional :: must_be_set !< Set to false to suppress the error when attempting to unset
