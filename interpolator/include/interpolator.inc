@@ -927,7 +927,7 @@ end subroutine GET_AXIS_LEVEL_DATA_
 !! @param [in] <q3> No description
 !! @param [in] <q4> No description
 !! @param [out] <e2> No description
- subroutine CELL_CENTER2_(q1, q2, q3, q4, e2)
+ subroutine CELL_CENTER2_(q1, q2, q3, q4, e2) bind(c)
       real(FMS_INTP_KIND_) , intent(in ) :: q1(2), q2(2), q3(2), q4(2)
       real(FMS_INTP_KIND_) , intent(out) :: e2(2)
 ! Local
@@ -962,7 +962,7 @@ end subroutine GET_AXIS_LEVEL_DATA_
 !! @param [inout] <q> No description
 !! @param [inout] <xs> No description
 !! @param [inout] <ys> No description
- subroutine CART_TO_LATLON_(np, q, xs, ys)
+ subroutine CART_TO_LATLON_(np, q, xs, ys) bind(c)
 ! vector version of cart_to_latlon1
   integer, intent(in):: np
   real(FMS_INTP_KIND_), intent(inout):: q(3,np)
@@ -1007,7 +1007,7 @@ end subroutine GET_AXIS_LEVEL_DATA_
 !!
 !! @param [in] <p> No description
 !! @param [out] <e> No description
- subroutine LATLON2XYZ_(p, e)
+ subroutine LATLON2XYZ_(p, e) bind(c)
 !
 ! Routine to map (lon, lat) to (x,y,z)
 !
@@ -3270,7 +3270,7 @@ end subroutine DIAG_READ_DATA_
 !! @param [in] <grdout> No description
 !! @param [in] <datin> No description
 !! @param [out] <datout> No description
-subroutine INTERP_WEIGHTED_SCALAR_2D_ (grdin, grdout, datin, datout )
+subroutine INTERP_WEIGHTED_SCALAR_2D_ (grdin, grdout, datin, datout ) bind(c)
 real(FMS_INTP_KIND_), intent(in),  dimension(:) :: grdin, grdout
 real(FMS_INTP_KIND_), intent(in),  dimension(:,:) :: datin
 real(FMS_INTP_KIND_), intent(out), dimension(:,:) :: datout
@@ -3338,7 +3338,7 @@ end subroutine INTERP_WEIGHTED_SCALAR_2D_
 !! @param [in] <grdout> No description
 !! @param [in] <datin> No description
 !! @param [out] <datout> No description
-subroutine INTERP_WEIGHTED_SCALAR_1D_ (grdin, grdout, datin, datout )
+subroutine INTERP_WEIGHTED_SCALAR_1D_ (grdin, grdout, datin, datout ) bind(c)
 real(FMS_INTP_KIND_), intent(in),  dimension(:) :: grdin, grdout, datin
 real(FMS_INTP_KIND_), intent(out), dimension(:) :: datout
 
@@ -3398,7 +3398,7 @@ end subroutine INTERP_WEIGHTED_SCALAR_1D_
 !! @param [in] <grdout> No description
 !! @param [in] <datin> No description
 !! @param [out] <datout> No description
-subroutine INTERP_LINEAR_ ( grdin, grdout, datin, datout )
+subroutine INTERP_LINEAR_ ( grdin, grdout, datin, datout ) bind(c)
 real(FMS_INTP_KIND_), intent(in),  dimension(:) :: grdin, grdout, datin
 real(FMS_INTP_KIND_), intent(out), dimension(:) :: datout
 

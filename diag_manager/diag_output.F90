@@ -791,7 +791,7 @@ character(len=128),dimension(size(axes)) :: axis_names
   !! @details Writes axis data to file.  This subroutine is to be called once per file
   !!     after all <TT>write_meta_data</TT> calls, and before the first
   !!     <TT>diag_field_out</TT> call.
-  SUBROUTINE done_meta_data(file_unit)
+  SUBROUTINE done_meta_data(file_unit) bind(c)
     INTEGER,  INTENT(in)  :: file_unit !< Output file unit number
 
     !---- write data for all non-time axes ----
@@ -885,7 +885,7 @@ character(len=128),dimension(size(axes)) :: axis_names
 
   !> @brief Return the axis index number.
   !! @return Integer index
-  FUNCTION get_axis_index(num) RESULT ( index )
+  FUNCTION get_axis_index(num) RESULT ( index ) bind(c)
     INTEGER, INTENT(in) :: num
 
     INTEGER :: index
@@ -911,7 +911,7 @@ character(len=128),dimension(size(axes)) :: axis_names
   END SUBROUTINE get_diag_global_att
 
   !> @brief Set the global attribute type.
-  SUBROUTINE set_diag_global_att(component, gridType, tileName)
+  SUBROUTINE set_diag_global_att(component, gridType, tileName) bind(c)
     CHARACTER(len=*),INTENT(in) :: component, gridType, tileName
 
     ! The following two lines are set to remove compile time warnings

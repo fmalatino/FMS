@@ -119,7 +119,7 @@ use,intrinsic :: iso_c_binding, only: c_double,c_float,c_int64_t, &
 CONTAINS
 
   !> @brief Write the version number of this file to the log file.
-  SUBROUTINE diag_util_init()
+  SUBROUTINE diag_util_init() bind(c)
     IF (module_initialized) THEN
        RETURN
     END IF
@@ -129,7 +129,7 @@ CONTAINS
   END SUBROUTINE diag_util_init
 
   !> @brief Get the size, start, and end indices for output fields.
-  SUBROUTINE get_subfield_size(axes, outnum)
+  SUBROUTINE get_subfield_size(axes, outnum) bind(c)
     INTEGER, INTENT(in) :: axes(:) !< axes of the input_field
     INTEGER, INTENT(in) :: outnum  !< position in array output_fields
 
@@ -411,7 +411,7 @@ CONTAINS
   END SUBROUTINE get_subfield_size
 
   !> @brief Get size, start and end indices for output fields.
-  SUBROUTINE get_subfield_vert_size(axes, outnum)
+  SUBROUTINE get_subfield_vert_size(axes, outnum) bind(c)
     INTEGER, DIMENSION(:), INTENT(in) :: axes !< axes of the input_field
     INTEGER, INTENT(in) :: outnum  !< position in array output_fields
 
@@ -542,7 +542,7 @@ CONTAINS
   END SUBROUTINE get_subfield_vert_size
 
   !> @brief Find index <TT>i</TT> of array such that <TT>array(i)</TT> is closest to number.
-  INTEGER FUNCTION get_index(number, array)
+  INTEGER FUNCTION get_index(number, array) bind(c)
     REAL, INTENT(in) :: number !<
     REAL, INTENT(in), DIMENSION(:) :: array !<
 
@@ -741,7 +741,7 @@ CONTAINS
 
   !> @brief Update the <TT>output_fields</TT> x, y, and z min and max boundaries (array indices)
   !! with the six specified bounds values.
-  SUBROUTINE update_bounds(out_num, lower_i, upper_i, lower_j, upper_j, lower_k, upper_k)
+  SUBROUTINE update_bounds(out_num, lower_i, upper_i, lower_j, upper_j, lower_k, upper_k) bind(c)
     INTEGER, INTENT(in) :: out_num !< output field ID
     INTEGER, INTENT(in) :: lower_i !< Lower i bound.
     INTEGER, INTENT(in) :: upper_i !< Upper i bound.
@@ -813,21 +813,21 @@ LOGICAL FUNCTION compare_buffer_bounds_to_size(current_bounds, bounds, error_str
 END FUNCTION compare_buffer_bounds_to_size
 
 !> @brief return true iff a<b.
-LOGICAL FUNCTION a_lessthan_b(a , b)
+LOGICAL FUNCTION a_lessthan_b(a , b) bind(c)
  INTEGER, INTENT(IN) :: a !< The first of the two integer args that are to be compared to each other.
  INTEGER, INTENT(IN) :: b !< The first of the two integer args that are to be compared to each other.
  a_lessthan_b = A < B
 END FUNCTION a_lessthan_b
 
 !> @brief return true iff a>b.
-LOGICAL FUNCTION a_greaterthan_b(a, b)
+LOGICAL FUNCTION a_greaterthan_b(a, b) bind(c)
  INTEGER, INTENT(IN) :: a !< The first of the two integer args that are to be compared to each other.
  INTEGER, INTENT(IN) :: b !< The first of the two integer args that are to be compared to each other.
  a_greaterthan_b = A > B
 END FUNCTION a_greaterthan_b
 
 !> @brief return true iff a /= b
-LOGICAL FUNCTION a_noteq_b(a, b)
+LOGICAL FUNCTION a_noteq_b(a, b) bind(c)
 INTEGER, INTENT(IN) :: a !< The first of the two integer args that are to be compared to each other.
 INTEGER, INTENT(IN) :: b !< The first of the two integer args that are to be compared to each other.
 a_noteq_b = a /= b
@@ -836,7 +836,7 @@ END FUNCTION a_noteq_b
   !> @brief Checks if the array indices for <TT>output_fields(out_num)</TT> are outside the
   !! <TT>output_fields(out_num)%buffer</TT> upper and lower bounds.
   !! If there is an error then error message will be filled.
-SUBROUTINE check_out_of_bounds(out_num, diag_field_id, err_msg)
+SUBROUTINE check_out_of_bounds(out_num, diag_field_id, err_msg) bind(c)
   INTEGER, INTENT(in) :: out_num !< Output field ID number.
   INTEGER, INTENT(in) :: diag_field_id !< Input field ID number.
   CHARACTER(len=*), INTENT(out) :: err_msg !< Return status of <TT>check_out_of_bounds</TT>.  An empty
@@ -1011,7 +1011,7 @@ END SUBROUTINE check_bounds_are_exact_dynamic
 
   !> @brief Check if the array indices for <TT>output_fields(out_num)</TT> are equal to the
   !! <TT>output_fields(out_num)%buffer</TT> upper and lower bounds.
-  SUBROUTINE check_bounds_are_exact_static(out_num, diag_field_id, err_msg)
+  SUBROUTINE check_bounds_are_exact_static(out_num, diag_field_id, err_msg) bind(c)
     INTEGER, INTENT(in) :: out_num !< Output field ID
     INTEGER, INTENT(in) :: diag_field_id !< Input field ID.
     CHARACTER(len=*), INTENT(out) :: err_msg !< The return status, which is set to non-empty message
@@ -1337,7 +1337,7 @@ END SUBROUTINE check_bounds_are_exact_dynamic
 
   !> @brief Return the file number for file name and tile.
   !! @return Integer find_file
-  INTEGER FUNCTION find_file(name, tile_count)
+  INTEGER FUNCTION find_file(name, tile_count) bind(c)
     INTEGER, INTENT(in) :: tile_count !< Tile number.
     CHARACTER(len=*), INTENT(in) :: name !< File name.
 
@@ -1354,7 +1354,7 @@ END SUBROUTINE check_bounds_are_exact_dynamic
 
   !> @brief Return the field number for the given module name, field name, and tile number.
   !! @return Integer find_input_field
-  INTEGER FUNCTION find_input_field(module_name, field_name, tile_count)
+  INTEGER FUNCTION find_input_field(module_name, field_name, tile_count) bind(c)
     CHARACTER(len=*), INTENT(in) :: module_name !< Module name.
     CHARACTER(len=*), INTENT(in) :: field_name !< field name.
     INTEGER, INTENT(in) :: tile_count !< Tile number.
@@ -1373,7 +1373,7 @@ END SUBROUTINE check_bounds_are_exact_dynamic
   END FUNCTION find_input_field
 
   !> @brief Initialize the input field.
-  SUBROUTINE init_input_field(module_name, field_name, tile_count)
+  SUBROUTINE init_input_field(module_name, field_name, tile_count) bind(c)
     CHARACTER(len=*),  INTENT(in) :: module_name !< Module name.
     CHARACTER(len=*),  INTENT(in) :: field_name !< Input field name.
     INTEGER, INTENT(in) :: tile_count !< Tile number.
@@ -2458,7 +2458,7 @@ END SUBROUTINE check_bounds_are_exact_dynamic
   END SUBROUTINE check_and_open
 
   !> @brief Output all static fields in this file
-  SUBROUTINE write_static(file)
+  SUBROUTINE write_static(file) bind(c)
     INTEGER, INTENT(in) :: file !< File ID.
     INTEGER :: j, i, input_num
 
@@ -2489,7 +2489,7 @@ END SUBROUTINE check_bounds_are_exact_dynamic
   END SUBROUTINE write_static
 
   !> @brief Checks to see if <TT>output_name</TT> and <TT>output_file</TT> are unique in <TT>output_fields</TT>.
-  SUBROUTINE check_duplicate_output_fields(err_msg)
+  SUBROUTINE check_duplicate_output_fields(err_msg) bind(c)
     CHARACTER(len=*), INTENT(out), OPTIONAL :: err_msg !< Error message.  If empty, then no duplicates found.
 
     INTEGER :: i, j, tmp_file

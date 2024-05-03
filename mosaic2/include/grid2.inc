@@ -293,7 +293,7 @@ end subroutine GET_GRID_COMP_AREA_UG_
 
 !> @brief returns arrays of global grid cell boundaries for given model component and
 !! mosaic tile number.
-subroutine GET_GRID_CELL_VERTICES_1D_(component, tile, glonb, glatb)
+subroutine GET_GRID_CELL_VERTICES_1D_(component, tile, glonb, glatb) bind(c)
   character(len=*), intent(in) :: component !< Component model (atm, lnd, ocn)
   integer,          intent(in) :: tile !< Tile number
   real(kind=FMS_MOS_KIND_),intent(inout) :: glonb(:),glatb(:) !< Grid cell vertices
@@ -573,7 +573,7 @@ subroutine GET_GRID_CELL_VERTICES_UG_(component, tile, lonb, latb, SG_domain, UG
 end subroutine GET_GRID_CELL_VERTICES_UG_
 
 !> @brief returns grid cell centers given model component and mosaic tile number
-subroutine GET_GRID_CELL_CENTERS_1D_(component, tile, glon, glat)
+subroutine GET_GRID_CELL_CENTERS_1D_(component, tile, glon, glat) bind(c)
   character(len=*), intent(in) :: component !< Component model (atm, lnd, ocn)
   integer, intent(in) :: tile !< Tile number
   real(kind=FMS_MOS_KIND_), intent(inout) :: glon(:),glat(:) !< Grid cell centers

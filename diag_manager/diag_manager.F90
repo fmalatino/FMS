@@ -1096,7 +1096,7 @@ CONTAINS
   !! @return get_diag_field_id will return the ID returned during the register_diag_field call.
   !!   If the variable is not in the diag_table, then the value "DIAG_FIELD_NOT_FOUND" will be
   !!   returned.
-  INTEGER FUNCTION get_diag_field_id(module_name, field_name)
+  INTEGER FUNCTION get_diag_field_id(module_name, field_name) bind(c)
     CHARACTER(len=*), INTENT(in) :: module_name !< Module name that registered the variable
     CHARACTER(len=*), INTENT(in) :: field_name !< Variable name
 
@@ -1243,7 +1243,7 @@ CONTAINS
   !! @throw FATAL, "Length of asso_file_name is not long enough to hold the associated file name."
   !!     The length of character array asso_file_name is not long enough to hold the full file name
   !!     of the associated_file.  Please contact the developer to increase the length of the  variable.
-  SUBROUTINE add_associated_files(file_num, cm_file_num, cm_ind)
+  SUBROUTINE add_associated_files(file_num, cm_file_num, cm_ind) bind(c)
     INTEGER, intent(in) :: file_num !< File number that needs the associated_files attribute
     INTEGER, intent(in) :: cm_file_num !< file number that contains the associated field
     INTEGER, intent(in) :: cm_ind !< index of the output_field in the associated file
@@ -3275,7 +3275,7 @@ CONTAINS
   END FUNCTION send_tile_averaged_data1d
 
   !> @brief Calculates average for a field with the given area and land mask
-  SUBROUTINE average_tiles1d(diag_field_id, x, area, mask, out)
+  SUBROUTINE average_tiles1d(diag_field_id, x, area, mask, out) bind(c)
     INTEGER, INTENT(in) :: diag_field_id
     REAL, DIMENSION(:,:), INTENT(in) :: x !< (ug_index, tile) field to average
     REAL, DIMENSION(:,:), INTENT(in) :: area !< (ug_index, tile) fractional area
@@ -3373,7 +3373,7 @@ CONTAINS
   END FUNCTION send_tile_averaged_data3d
 
   !> @brief Calculates tile average of a field
-  SUBROUTINE average_tiles(diag_field_id, x, area, mask, out)
+  SUBROUTINE average_tiles(diag_field_id, x, area, mask, out) bind(c)
     INTEGER, INTENT(in) :: diag_field_id
     REAL, DIMENSION(:,:,:), INTENT(in) :: x !< (lon, lat, tile) field to average
     REAL, DIMENSION(:,:,:), INTENT(in) :: area !< (lon, lat, tile) fractional area
@@ -3775,7 +3775,7 @@ CONTAINS
 
   !> @brief Initialize Diagnostics Manager.
   !! @details Open and read diag_table. Select fields and files for diagnostic output.
-  SUBROUTINE diag_manager_init(diag_model_subset, time_init, err_msg)
+  SUBROUTINE diag_manager_init(diag_model_subset, time_init, err_msg) bind(c)
     INTEGER, OPTIONAL, INTENT(IN) :: diag_model_subset
     INTEGER, DIMENSION(6), OPTIONAL, INTENT(IN) :: time_init !< Model time diag_manager initialized
     CHARACTER(len=*), INTENT(out), OPTIONAL :: err_msg
@@ -3955,7 +3955,7 @@ CONTAINS
 
   !> @brief Return base date for diagnostics.
   !! @details Return date information for diagnostic reference time.
-  SUBROUTINE get_base_date(year, month, day, hour, minute, second)
+  SUBROUTINE get_base_date(year, month, day, hour, minute, second) bind(c)
     INTEGER, INTENT(out) :: year, month, day, hour, minute, second
 
     ! <ERROR STATUS="FATAL">module has not been initialized</ERROR>
@@ -4002,7 +4002,7 @@ CONTAINS
   !! @details Given number of time intervals in the day, finds or initializes a diurnal time axis
   !!     and returns its ID. It uses get_base_date, so should be in the file where it's accessible.
   !!     The units are 'days since BASE_DATE', all diurnal axes belong to the set 'diurnal'
-  INTEGER FUNCTION init_diurnal_axis(n_samples)
+  INTEGER FUNCTION init_diurnal_axis(n_samples) bind(c)
     INTEGER, INTENT(in) :: n_samples !< number of intervals during the day
 
     REAL :: center_data  (n_samples)   !< central points of time intervals
@@ -4046,7 +4046,7 @@ CONTAINS
     END IF
   END FUNCTION init_diurnal_axis
 
-  SUBROUTINE diag_field_attribute_init(diag_field_id, name, type, cval, ival, rval)
+  SUBROUTINE diag_field_attribute_init(diag_field_id, name, type, cval, ival, rval) bind(c)
     INTEGER, INTENT(in) :: diag_field_id !< input field ID, obtained from diag_manager_mod::register_diag_field.
     CHARACTER(len=*), INTENT(in) :: name !< Name of the attribute
     INTEGER, INTENT(in) :: type !< NetCDF type (NF90_FLOAT, NF90_INT, NF90_CHAR)
@@ -4210,7 +4210,7 @@ CONTAINS
   END SUBROUTINE diag_field_attribute_init
 
   !> @brief Add a scalar real attribute to the diag field corresponding to a given id
-  SUBROUTINE diag_field_add_attribute_scalar_r(diag_field_id, att_name, att_value)
+  SUBROUTINE diag_field_add_attribute_scalar_r(diag_field_id, att_name, att_value) bind(c)
     INTEGER, INTENT(in) :: diag_field_id !< ID number for field to add attribute to
     CHARACTER(len=*), INTENT(in) :: att_name !< new attribute name
     REAL, INTENT(in) :: att_value !< new attribute value
@@ -4219,7 +4219,7 @@ CONTAINS
   END SUBROUTINE diag_field_add_attribute_scalar_r
 
   !> @brief Add a scalar integer attribute to the diag field corresponding to a given id
-  SUBROUTINE diag_field_add_attribute_scalar_i(diag_field_id, att_name, att_value)
+  SUBROUTINE diag_field_add_attribute_scalar_i(diag_field_id, att_name, att_value) bind(c)
     INTEGER, INTENT(in) :: diag_field_id !< ID number for field to add attribute to
     CHARACTER(len=*), INTENT(in) :: att_name !< new attribute name
     INTEGER, INTENT(in) :: att_value !< new attribute value
@@ -4228,7 +4228,7 @@ CONTAINS
   END SUBROUTINE diag_field_add_attribute_scalar_i
 
   !> @brief Add a scalar character attribute to the diag field corresponding to a given id
-  SUBROUTINE diag_field_add_attribute_scalar_c(diag_field_id, att_name, att_value)
+  SUBROUTINE diag_field_add_attribute_scalar_c(diag_field_id, att_name, att_value) bind(c)
     INTEGER, INTENT(in) :: diag_field_id !< ID number for field to add attribute to
     CHARACTER(len=*), INTENT(in) :: att_name !< new attribute name
     CHARACTER(len=*), INTENT(in) :: att_value !< new attribute value
@@ -4237,7 +4237,7 @@ CONTAINS
   END SUBROUTINE diag_field_add_attribute_scalar_c
 
   !> @brief Add a real 1D array attribute to the diag field corresponding to a given id
-  SUBROUTINE diag_field_add_attribute_r1d(diag_field_id, att_name, att_value)
+  SUBROUTINE diag_field_add_attribute_r1d(diag_field_id, att_name, att_value) bind(c)
     INTEGER, INTENT(in) :: diag_field_id !< ID number for field to add attribute to
     CHARACTER(len=*), INTENT(in) :: att_name !< new attribute name
     REAL, DIMENSION(:), INTENT(in) :: att_value !< new attribute value
@@ -4246,7 +4246,7 @@ CONTAINS
   END SUBROUTINE diag_field_add_attribute_r1d
 
   !> @brief Add an integer 1D array attribute to the diag field corresponding to a given id
-  SUBROUTINE diag_field_add_attribute_i1d(diag_field_id, att_name, att_value)
+  SUBROUTINE diag_field_add_attribute_i1d(diag_field_id, att_name, att_value) bind(c)
     INTEGER, INTENT(in) :: diag_field_id !< ID number for field to add attribute to
     CHARACTER(len=*), INTENT(in) :: att_name !< new attribute name
     INTEGER, DIMENSION(:), INTENT(in) :: att_value !< new attribute value
@@ -4259,7 +4259,7 @@ CONTAINS
   !> Add the cell_measures attribute to a give diag field.  This is useful if the
   !! area/volume fields for the diagnostic field are defined in another module after
   !! the diag_field.
-  SUBROUTINE diag_field_add_cell_measures(diag_field_id, area, volume)
+  SUBROUTINE diag_field_add_cell_measures(diag_field_id, area, volume) bind(c)
     INTEGER, INTENT(in) :: diag_field_id
     INTEGER, INTENT(in), OPTIONAL :: area !< diag ids of area
     INTEGER, INTENT(in), OPTIONAL :: volume !< diag ids of volume

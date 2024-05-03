@@ -85,7 +85,7 @@
   !> @param[inout] area grid cell area.
   !> <br>Example usage:
   !!            call calc_mosaic_grid_area(lon, lat, area)
-  subroutine CALC_MOSAIC_GRID_AREA_(lon, lat, area)
+  subroutine CALC_MOSAIC_GRID_AREA_(lon, lat, area) bind(c)
      real(kind=FMS_MOS_KIND_), dimension(:,:), intent(in)    :: lon
      real(kind=FMS_MOS_KIND_), dimension(:,:), intent(in)    :: lat
      real(kind=FMS_MOS_KIND_), dimension(:,:), intent(inout) :: area
@@ -118,7 +118,7 @@
   !> @param[inout] area grid cell area.
   !> <br>Example usage:
   !!            call calc_mosaic_grid_great_circle_area(lon, lat, area)
-  subroutine CALC_MOSAIC_GRID_GREAT_CIRCLE_AREA_(lon, lat, area)
+  subroutine CALC_MOSAIC_GRID_GREAT_CIRCLE_AREA_(lon, lat, area) bind(c)
      real(kind=FMS_MOS_KIND_), dimension(:,:), intent(in)    :: lon
      real(kind=FMS_MOS_KIND_), dimension(:,:), intent(in)    :: lat
      real(kind=FMS_MOS_KIND_), dimension(:,:), intent(inout) :: area
@@ -143,7 +143,7 @@
   !#####################################################################
   !> This function check if a point (lon1,lat1) is inside a polygon (lon2(:), lat2(:))
   !! lon1, lat1, lon2, lat2 are in radians.
-  function IS_INSIDE_POLYGON_(lon1, lat1, lon2, lat2 )
+  function IS_INSIDE_POLYGON_(lon1, lat1, lon2, lat2 ) bind(c)
      real(kind=FMS_MOS_KIND_), intent(in) :: lon1, lat1
      real(kind=FMS_MOS_KIND_), intent(in) :: lon2(:), lat2(:)
      logical :: IS_INSIDE_POLYGON_

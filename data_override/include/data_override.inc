@@ -560,7 +560,7 @@ end subroutine read_table
 
 #ifdef use_yaml
 !> @brief Read and parse the data_table.yaml
-subroutine read_table_yaml(data_table)
+subroutine read_table_yaml(data_table) bind(c)
     type(data_type), dimension(:), allocatable, intent(out) :: data_table !< Contents of the data_table.yaml
 
     integer, allocatable :: entry_id(:)
@@ -634,7 +634,7 @@ subroutine read_table_yaml(data_table)
 end subroutine read_table_yaml
 
 !> @brief Check if a grid name is valid, crashes if it is not
-subroutine check_for_valid_gridname(gridname)
+subroutine check_for_valid_gridname(gridname) bind(c)
    character(len=*), intent(in) :: gridname !< Gridname
 
    select case(trim(gridname))
@@ -646,7 +646,7 @@ subroutine check_for_valid_gridname(gridname)
 end subroutine check_for_valid_gridname
 
 !> @brief Check if the interpol method is correct, crashes if it is not
-subroutine check_interpol_method(interp_method, filename, fieldname)
+subroutine check_interpol_method(interp_method, filename, fieldname) bind(c)
    character(len=*), intent(in) :: interp_method !< The interpo_method
    character(len=*), intent(in) :: filename      !< The filename
    character(len=*), intent(in) :: fieldname     !< The fieldname in the file
@@ -670,7 +670,7 @@ end subroutine check_interpol_method
 
 !> @brief Check if a region_type is valid, crashes if it is not. Otherwise it sets the
 !! correct integer parameter.
-subroutine check_and_set_region_type(region_type_str, region_type_int)
+subroutine check_and_set_region_type(region_type_str, region_type_int) bind(c)
    character(len=*), intent(in)  :: region_type_str !< The region type as defined in the data.yaml
    integer,          intent(out) :: region_type_int !< The region type as an integer parameter
 
@@ -689,7 +689,7 @@ end subroutine check_and_set_region_type
 
 !> @brief Check if a region lon_start, lon_end, lat_start and lat_end is valid.
 !! Crashes if it is not.
-subroutine check_valid_lat_lon(lon_start, lon_end, lat_start, lat_end)
+subroutine check_valid_lat_lon(lon_start, lon_end, lat_start, lat_end) bind(c)
    real(FMS_DATA_OVERRIDE_KIND_), intent(in) :: lon_start !< Starting longitude of the data_override region
    real(FMS_DATA_OVERRIDE_KIND_), intent(in) :: lon_end   !< Ending longitude of the data_override region
    real(FMS_DATA_OVERRIDE_KIND_), intent(in) :: lat_start !< Starting lattiude of the data_override region
@@ -705,25 +705,25 @@ subroutine check_valid_lat_lon(lon_start, lon_end, lat_start, lat_end)
 end subroutine check_valid_lat_lon
 #endif
 
-subroutine DATA_OVERRIDE_UNSET_ATM_
+subroutine DATA_OVERRIDE_UNSET_ATM_ () bind(c)
   atm_domain = NULL_DOMAIN2D
   if (allocated(lon_local_atm)) deallocate(lon_local_atm)
   if (allocated(lat_local_atm)) deallocate(lat_local_atm)
 end subroutine
 
-subroutine DATA_OVERRIDE_UNSET_OCN_
+subroutine DATA_OVERRIDE_UNSET_OCN_ () bind(c)
   ocn_domain = NULL_DOMAIN2D
   if (allocated(lon_local_ocn)) deallocate(lon_local_ocn)
   if (allocated(lat_local_ocn)) deallocate(lat_local_ocn)
 end subroutine
 
-subroutine DATA_OVERRIDE_UNSET_LND_
+subroutine DATA_OVERRIDE_UNSET_LND_ () bind(c)
   lnd_domain = NULL_DOMAIN2D
   if (allocated(lon_local_lnd)) deallocate(lon_local_lnd)
   if (allocated(lat_local_lnd)) deallocate(lat_local_lnd)
 end subroutine
 
-subroutine DATA_OVERRIDE_UNSET_ICE_
+subroutine DATA_OVERRIDE_UNSET_ICE_ () bind(c)
   ice_domain = NULL_DOMAIN2D
   if (allocated(lon_local_ice)) deallocate(lon_local_ice)
   if (allocated(lat_local_ice)) deallocate(lat_local_ice)

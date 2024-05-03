@@ -504,7 +504,7 @@ end subroutine interpolate_type_eq
 !!        burden (kg/m2) then conversion to mixing ratio is flagged.
 !!
 !! @param [in] <units> The units which you will be checking
-function check_climo_units(units)
+function check_climo_units(units) bind(c)
 ! Function to check the units that the climatology data is using.
 ! This is needed to allow for conversion of datasets to mixing ratios which is what the
 ! vertical interpolation scheme requires

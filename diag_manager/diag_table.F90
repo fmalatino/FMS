@@ -316,7 +316,7 @@ CONTAINS
   !!     to get a good "guess" of array sizes.  These arrays, that will hold the requested
   !!     diagnostic fields and files, will then be
   !!     allocated to the size of the "guess" plus a slight increase.
-  SUBROUTINE parse_diag_table(diag_subset, istat, err_msg)
+  SUBROUTINE parse_diag_table(diag_subset, istat, err_msg) bind(c)
     INTEGER, INTENT(in), OPTIONAL :: diag_subset !< Diagnostic sampling subset.
     INTEGER, INTENT(out), OPTIONAL, TARGET :: istat !< Status of parsing the <TT>diag_table</TT>.
                                                     !! A non-zero status indicates a problem parsing the table.
@@ -773,7 +773,7 @@ CONTAINS
   !! @details <TT>is_a_file</TT> checks a diag_table line to determine if the line describes
   !! a file.  If the line describes a file, the
   !!     <TT>is_a_file</TT> will return <TT>.TRUE.</TT>.  Otherwise, it will return <TT>.FALSE.</TT>
-  PURE LOGICAL FUNCTION is_a_file(line)
+  PURE LOGICAL FUNCTION is_a_file(line) bind(c)
     CHARACTER(len=*), INTENT(in) :: line !< String containing the <TT>diag_table</TT> line.
 
     CHARACTER(len=5) :: first
@@ -840,7 +840,7 @@ CONTAINS
   !!       <LI> years = 6 </LI>
   !!       <LI> unknown = -1 </LI>
   !!     </UL>
-  PURE INTEGER FUNCTION find_unit_ivalue(unit_string)
+  PURE INTEGER FUNCTION find_unit_ivalue(unit_string) bind(c)
        CHARACTER(len=*), INTENT(IN) :: unit_string !< Input string, containing the unit.
 
     SELECT CASE (TRIM(unit_string))
@@ -862,7 +862,7 @@ CONTAINS
   END FUNCTION find_unit_ivalue
 
   !> @brief Allocate the file, in and out field arrays after reading the <TT>diag_table</TT> file. (CURRENTLY EMPTY)
-  SUBROUTINE initialize_output_arrays()
+  SUBROUTINE initialize_output_arrays() bind(c)
     ! Place Holder
   END SUBROUTINE initialize_output_arrays
 

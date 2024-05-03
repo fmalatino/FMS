@@ -374,7 +374,7 @@ use platform_mod
 CONTAINS
 
   !> @brief Initialize and write the version number of this file to the log file.
-  SUBROUTINE diag_data_init()
+  SUBROUTINE diag_data_init() bind(c)
     IF (module_is_initialized) THEN
        RETURN
     END IF

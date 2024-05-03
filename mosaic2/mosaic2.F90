@@ -343,7 +343,7 @@ end subroutine mosaic_init
   end subroutine get_mosaic_contact
 
 
-function transfer_to_model_index(istart, iend, refine_ratio)
+function transfer_to_model_index(istart, iend, refine_ratio) bind(c, name="transfer_to_model_index_mosaic2")
    integer, intent(inout) :: istart, iend
    integer                :: refine_ratio
    integer                :: transfer_to_model_index
@@ -376,7 +376,7 @@ function transfer_to_model_index(istart, iend, refine_ratio)
 
 end function transfer_to_model_index
 !#####################################################################
-function parse_string(string, set, sval)
+function parse_string(string, set, sval) bind(c, name="parse_string_mosaic")
    character(len=*),  intent(in) :: string
    character(len=*),  intent(in) :: set
    character(len=*), intent(out) :: sval(:)

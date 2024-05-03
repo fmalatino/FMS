@@ -553,7 +553,7 @@ CONTAINS
   END SUBROUTINE get_diag_axis
 
   !> @brief Return the axis cartesian.
-  SUBROUTINE get_diag_axis_cart(id, cart_name)
+  SUBROUTINE get_diag_axis_cart(id, cart_name) bind(c)
     INTEGER, INTENT(in)           :: id !< Axis ID
     CHARACTER(len=*), INTENT(out) :: cart_name !< Cartesian axis
 
@@ -562,7 +562,7 @@ CONTAINS
   END SUBROUTINE get_diag_axis_cart
 
   !> @brief Return the axis data.
-  SUBROUTINE get_diag_axis_data(id, axis_data)
+  SUBROUTINE get_diag_axis_data(id, axis_data) bind(c)
     INTEGER, INTENT(in) :: id !< Axis ID
     REAL, DIMENSION(:), INTENT(out) :: axis_data !< Axis data
 
@@ -576,7 +576,7 @@ CONTAINS
   END SUBROUTINE get_diag_axis_data
 
   !> @brief Return the short name of the axis.
-  SUBROUTINE get_diag_axis_name(id, name)
+  SUBROUTINE get_diag_axis_name(id, name) bind(c)
     INTEGER         , INTENT(in)  :: id !< Axis ID
     CHARACTER(len=*), INTENT(out) :: name !< Axis short name
 
@@ -585,7 +585,7 @@ CONTAINS
   END SUBROUTINE get_diag_axis_name
 
   !> @brief Return the name of the axis' domain
-  SUBROUTINE get_diag_axis_domain_name(id, name)
+  SUBROUTINE get_diag_axis_domain_name(id, name) bind(c)
     INTEGER, INTENT(in) :: id !< Axis ID
     CHARACTER(len=*), INTENT(out) :: name !< Axis' domain name
 
@@ -595,7 +595,7 @@ CONTAINS
 
   !> @brief Return the length of the axis.
   !> @return length of axis as an integer
-  INTEGER FUNCTION get_axis_length(id)
+  INTEGER FUNCTION get_axis_length(id) bind(c)
     INTEGER, INTENT(in) :: id !< Axis ID
     INTEGER :: length
 
@@ -629,7 +629,7 @@ CONTAINS
 
   !> @brief Return the global length of the axis.
   !! @return global length of the axis
-  INTEGER FUNCTION get_axis_global_length(id)
+  INTEGER FUNCTION get_axis_global_length(id) bind(c)
     INTEGER, INTENT(in) :: id !< Axis ID
 
     CALL valid_id_check(id, 'get_axis_global_length')
@@ -638,7 +638,7 @@ CONTAINS
 
   !> @brief Return the tile count for the axis.
   !! @return tile count for the axis
-  INTEGER FUNCTION get_tile_count(ids)
+  INTEGER FUNCTION get_tile_count(ids) bind(c)
     INTEGER, DIMENSION(:), INTENT(in) :: ids !< Axis IDs.
                                              !! Possible dimensions: 1 <= <TT>size(ids(:))</TT> <= 4.
 
@@ -718,7 +718,7 @@ CONTAINS
 !ug support
   !> @brief Checks if the axes are compatible
   !! @return integer domain_type
-  function axis_compatible_check(id,varname) result(domain_type)
+  function axis_compatible_check(id,varname) result(domain_type) bind(c)
 
    !Inputs/Outputs
     integer,dimension(:),intent(in)  :: id          !<The array of axis IDs
@@ -796,7 +796,7 @@ CONTAINS
   end function axis_compatible_check
 
   !> @brief Return the value of the shift for the axis IDs given.
-  SUBROUTINE get_axes_shift(ids, ishift, jshift)
+  SUBROUTINE get_axes_shift(ids, ishift, jshift) bind(c)
     INTEGER, DIMENSION(:), INTENT(in) :: ids
     INTEGER, INTENT(out) :: ishift !< X shift value.
     INTEGER, INTENT(out) :: jshift !< Y shift value.
@@ -820,7 +820,7 @@ CONTAINS
 
   !> @brief Returns index into axis table corresponding to a given axis name.
   !! @return Returns index into axis table corresponding to a given axis name.
-  INTEGER FUNCTION get_axis_num(axis_name, set_name)
+  INTEGER FUNCTION get_axis_num(axis_name, set_name) bind(c)
     CHARACTER(len=*), INTENT(in) :: axis_name !< Axis name
     CHARACTER(len=*), INTENT(in), OPTIONAL :: set_name !< Set name
 
@@ -842,7 +842,7 @@ CONTAINS
 
   !> @brief Returns index in axis set table corresponding to a given axis set name
   !! @return Returns index in axis set table corresponding to a given axis set name
-  INTEGER FUNCTION get_axis_set_num (set_name)
+  INTEGER FUNCTION get_axis_set_num (set_name) bind(c)
     CHARACTER(len=*), INTENT(in) :: set_name !< Set name
 
     INTEGER :: iset
@@ -858,7 +858,7 @@ CONTAINS
 
   !> @brief Check to see if the given axis id is a valid id.  If the axis id is invalid,
   !!     call a FATAL error.  If the ID is valid, just return.
-  SUBROUTINE valid_id_check(id, routine_name)
+  SUBROUTINE valid_id_check(id, routine_name) bind(c)
     INTEGER, INTENT(in) :: id !< Axis is to check for validity
     CHARACTER(len=*), INTENT(in) :: routine_name !< Name of the subroutine checking for a valid axis id
 
@@ -874,7 +874,7 @@ CONTAINS
     END IF
   END SUBROUTINE valid_id_check
 
-  SUBROUTINE diag_axis_attribute_init(diag_axis_id, name, type, cval, ival, rval)
+  SUBROUTINE diag_axis_attribute_init(diag_axis_id, name, type, cval, ival, rval) bind(c)
     INTEGER, INTENT(in) :: diag_axis_id !< input field ID, obtained from diag_axis_mod::diag_axis_init.
     CHARACTER(len=*) :: name !< Name of the attribute
     INTEGER, INTENT(in) :: type !< NetCDF type (NF_FLOAT, NF_INT, NF_CHAR)
@@ -1035,7 +1035,7 @@ CONTAINS
     END IF
   END SUBROUTINE diag_axis_attribute_init
 
-  SUBROUTINE diag_axis_add_attribute_scalar_r(diag_axis_id, att_name, att_value)
+  SUBROUTINE diag_axis_add_attribute_scalar_r(diag_axis_id, att_name, att_value) bind(c)
     INTEGER, INTENT(in) :: diag_axis_id
     CHARACTER(len=*), INTENT(in) :: att_name
     REAL, INTENT(in) :: att_value
@@ -1043,7 +1043,7 @@ CONTAINS
     CALL diag_axis_add_attribute_r1d(diag_axis_id, att_name, (/ att_value /))
   END SUBROUTINE diag_axis_add_attribute_scalar_r
 
-  SUBROUTINE diag_axis_add_attribute_scalar_i(diag_axis_id, att_name, att_value)
+  SUBROUTINE diag_axis_add_attribute_scalar_i(diag_axis_id, att_name, att_value) bind(c)
     INTEGER, INTENT(in) :: diag_axis_id
     CHARACTER(len=*), INTENT(in) :: att_name
     INTEGER, INTENT(in) :: att_value
@@ -1051,7 +1051,7 @@ CONTAINS
     CALL diag_axis_add_attribute_i1d(diag_axis_id, att_name, (/ att_value /))
   END SUBROUTINE diag_axis_add_attribute_scalar_i
 
-  SUBROUTINE diag_axis_add_attribute_scalar_c(diag_axis_id, att_name, att_value)
+  SUBROUTINE diag_axis_add_attribute_scalar_c(diag_axis_id, att_name, att_value) bind(c)
     INTEGER, INTENT(in) :: diag_axis_id
     CHARACTER(len=*), INTENT(in) :: att_name
     CHARACTER(len=*), INTENT(in) :: att_value
@@ -1059,7 +1059,7 @@ CONTAINS
     CALL diag_axis_attribute_init(diag_axis_id, att_name, NF90_CHAR, cval=att_value)
   END SUBROUTINE diag_axis_add_attribute_scalar_c
 
-  SUBROUTINE diag_axis_add_attribute_r1d(diag_axis_id, att_name, att_value)
+  SUBROUTINE diag_axis_add_attribute_r1d(diag_axis_id, att_name, att_value) bind(c)
     INTEGER, INTENT(in) :: diag_axis_id
     CHARACTER(len=*), INTENT(in) :: att_name
     REAL, DIMENSION(:), INTENT(in) :: att_value
@@ -1067,7 +1067,7 @@ CONTAINS
     CALL diag_axis_attribute_init(diag_axis_id, att_name, NF90_FLOAT, rval=att_value)
   END SUBROUTINE diag_axis_add_attribute_r1d
 
-  SUBROUTINE diag_axis_add_attribute_i1d(diag_axis_id, att_name, att_value)
+  SUBROUTINE diag_axis_add_attribute_i1d(diag_axis_id, att_name, att_value) bind(c)
     INTEGER, INTENT(in) :: diag_axis_id
     CHARACTER(len=*), INTENT(in) :: att_name
     INTEGER, DIMENSION(:), INTENT(in) :: att_value
@@ -1196,7 +1196,7 @@ CONTAINS
   !> @brief given an axis, returns TRUE if the axis uses compression-by-gathering: that is, if
   !!   this is an axis for fields on unstructured grid
   !! @return logical whether or not the axis uses compression-by-gathering
-  logical function axis_is_compressed(id)
+  logical function axis_is_compressed(id) bind(c)
     integer, intent(in) :: id
 
     integer :: i
@@ -1216,7 +1216,7 @@ CONTAINS
 
   !> @brief given an index of compressed-by-gathering axis, return an array of axes used in
   !!   compression. It is a fatal error to call it on axis that is not compressed
-  subroutine get_compressed_axes_ids(id, r)
+  subroutine get_compressed_axes_ids(id, r) bind(c)
     integer, intent(in)  :: id
     integer, intent(out), allocatable :: r(:)
 

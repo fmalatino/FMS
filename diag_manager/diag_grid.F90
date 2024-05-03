@@ -346,7 +346,7 @@ CONTAINS
   !! requestion regional output.  Once all the register fields
   !! calls are complete (before the first <TT>send_data</TT> call
   !! this procedure can be called to free up memory.
-  SUBROUTINE diag_grid_end()
+  SUBROUTINE diag_grid_end() bind(c)
 
     IF ( diag_grid_initialized ) THEN
        ! De-allocate grid
@@ -388,7 +388,7 @@ CONTAINS
   !> Given a defined region, find the local indexes on the local
   !!   PE surrounding the region.
   SUBROUTINE get_local_indexes(latStart, latEnd, lonStart, lonEnd,&
-       & istart, iend, jstart, jend)
+       & istart, iend, jstart, jend) bind(c)
     REAL, INTENT(in) :: latStart !< lat start angles
     REAL, INTENT(in) :: lonStart !< lon start angles
     REAL, INTENT(in) :: latEnd !< lat end angles
@@ -637,7 +637,7 @@ CONTAINS
   !> @brief Find the indices of the nearest grid point of the a-grid to the
   !!   specified (lon,lat) location on the local PE. if desired point not
   !!   within domain of local PE, return (0,0) as the indices.
-  SUBROUTINE get_local_indexes2(lat, lon, iindex, jindex)
+  SUBROUTINE get_local_indexes2(lat, lon, iindex, jindex) bind(c)
     REAL, INTENT(in) :: lat !< lat location
     REAL, INTENT(in) :: lon !< lon location
     INTEGER, INTENT(out) :: iindex !< i indexes
@@ -1085,7 +1085,7 @@ CONTAINS
                                       lon, &
                                       minI, &
                                       minJ, &
-                                      minimum_distance)
+                                      minimum_distance) bind(c)
 
     !Inputs/outputs
     REAL,INTENT(IN) :: lat
