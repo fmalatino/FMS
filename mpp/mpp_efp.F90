@@ -464,7 +464,7 @@ function real_to_ints(r, prec_error, overflow) result(ints)
 end function real_to_ints
 
 !> @brief This function reverses the conversion in real_to_ints.
-function ints_to_real(ints) result(r)
+function ints_to_real(ints) result(r) bind(c)
   integer(i8_kind), dimension(NUMINT), intent(in) :: ints
   real(r8_kind) :: r
 
@@ -476,7 +476,7 @@ end function ints_to_real
 
 !> @brief This subroutine increments a number with another, both using the integer
 !! representation in real_to_ints.
-subroutine increment_ints(int_sum, int2, prec_error)
+subroutine increment_ints(int_sum, int2, prec_error) bind(c)
   integer(i8_kind), dimension(NUMINT), intent(inout) :: int_sum
   integer(i8_kind), dimension(NUMINT), intent(in)    :: int2
   integer(i8_kind), optional,      intent(in)    :: prec_error
@@ -506,7 +506,7 @@ end subroutine increment_ints
 !> @brief This subroutine increments a number with another, both using the integer
 !! representation in real_to_ints, but without doing any carrying of overflow.
 !! The entire operation is embedded in a single call for greater speed.
-subroutine increment_ints_faster(int_sum, r, max_mag_term)
+subroutine increment_ints_faster(int_sum, r, max_mag_term) bind(c)
   integer(i8_kind), dimension(NUMINT), intent(inout) :: int_sum
   real(r8_kind),                        intent(in) :: r
   real(r8_kind),                     intent(inout) :: max_mag_term
@@ -529,7 +529,7 @@ subroutine increment_ints_faster(int_sum, r, max_mag_term)
 end subroutine increment_ints_faster
 
 !> @brief This subroutine handles carrying of the overflow.
-subroutine carry_overflow(int_sum, prec_error)
+subroutine carry_overflow(int_sum, prec_error) bind(c)
   integer(i8_kind), dimension(NUMINT), intent(inout) :: int_sum
   integer(i8_kind),                intent(in)    :: prec_error
 
@@ -548,7 +548,7 @@ end subroutine carry_overflow
 
 !> @brief This subroutine carries the overflow, and then makes sure that
 !! all integers are of the same sign as the overall value.
-subroutine regularize_ints(int_sum)
+subroutine regularize_ints(int_sum) bind(c)
   integer(i8_kind), dimension(NUMINT), intent(inout) :: int_sum
 
   logical :: positive
@@ -583,12 +583,12 @@ subroutine regularize_ints(int_sum)
 
 end subroutine regularize_ints
 
-function mpp_query_efp_overflow_error()
+function mpp_query_efp_overflow_error() bind(c, name="mpp_query_efp_overflow_error_func")
   logical :: mpp_query_efp_overflow_error
   mpp_query_efp_overflow_error = overflow_error
 end function mpp_query_efp_overflow_error
 
-subroutine mpp_reset_efp_overflow_error()
+subroutine mpp_reset_efp_overflow_error() bind(c, name="mpp_query_efp_overflow_error_subr")
   overflow_error = .false.
 end subroutine mpp_reset_efp_overflow_error
 

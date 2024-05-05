@@ -26,7 +26,7 @@
 !> Wrapper routine for @ref mpp_chksum interface
 !!
 !> @returns i8_kind checksum of var, which will actually be int if no_8byte_integers is defined
-function MPP_CHKSUM_( var, pelist , mask_val)
+function MPP_CHKSUM_( var, pelist , mask_val) bind(c)
   integer(i8_kind) :: MPP_CHKSUM_
   integer(MPP_TRANSFER_KIND_) :: mold(1) !< Mold is a dummy array to be used by TRANSFER(),
                                          !! must be same TYPE as result

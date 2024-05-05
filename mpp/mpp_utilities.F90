@@ -52,7 +52,7 @@ contains
 !! Modified by Niki.Zadeh@noaa.gov (Feb. 2009)
 !!
 subroutine mpp_array_global_min_max(in_array, tmask,isd,jsd,isc,iec,jsc,jec,nk, g_min, g_max, &
-                                    geo_x,geo_y,geo_z, xgmin, ygmin, zgmin, xgmax, ygmax, zgmax)
+                                    geo_x,geo_y,geo_z, xgmin, ygmin, zgmin, xgmax, ygmax, zgmax) bind(c)
 
   use mpp_mod,           only: mpp_min, mpp_max, mpp_pe, mpp_sum
 

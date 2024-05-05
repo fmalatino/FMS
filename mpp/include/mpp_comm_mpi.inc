@@ -185,7 +185,7 @@ end subroutine mpp_init
 !#######################################################################
 !> Finalizes process termination. To be called at the end of a run.
 !! Certain mpi implementations(openmpi) will fail if this is not called before program termination
-subroutine mpp_exit()
+subroutine mpp_exit() bind(c, name="mpp_exit_mpi")
   integer :: i, j, n, nmax, out_unit, log_unit
   real    :: t, tmin, tmax, tavg, tstd
   real    :: m, mmin, mmax, mavg, mstd, t_total
@@ -297,7 +297,7 @@ end subroutine mpp_exit
 
 !#######################################################################
   !> Set the mpp_stack variable to be at least n LONG words long
-  subroutine mpp_set_stack_size(n)
+  subroutine mpp_set_stack_size(n) bind(c, name="mpp_set_stack_size_mpi")
     integer, intent(in) :: n !< stack size to set
     character(len=8)    :: text
 
@@ -319,7 +319,7 @@ end subroutine mpp_exit
 !                                                                             !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !> Broadcasts a character string from the given pe to it's pelist
-    subroutine mpp_broadcast_char(char_data, length, from_pe, pelist )
+    subroutine mpp_broadcast_char(char_data, length, from_pe, pelist ) bind(c, name="mpp_broadcast_char_mpi")
       character(len=*), intent(inout) :: char_data(:) !< Character string to send
       integer, intent(in) :: length  !< length of given data to broadcast
       integer, intent(in) :: from_pe !< pe to broadcast from

@@ -26,7 +26,7 @@
 !> @{
 
 !> Wrapper for mpi_alltoall routine, sends data from all to all processes
-subroutine MPP_ALLTOALL_(sbuf, scount, rbuf, rcount, pelist)
+subroutine MPP_ALLTOALL_(sbuf, scount, rbuf, rcount, pelist) bind(c)
     MPP_TYPE_, intent(in) :: sbuf(:) !< data to send
     MPP_TYPE_, intent(inout) :: rbuf(:) !< received data
     integer,   intent(in) :: scount !< length of buffer data to send from each process
@@ -54,7 +54,7 @@ subroutine MPP_ALLTOALL_(sbuf, scount, rbuf, rcount, pelist)
 end subroutine MPP_ALLTOALL_
 
 !> Wrapper for mpi_alltoallv, sends data from all to all processes with vector displacement
-subroutine MPP_ALLTOALLV_(sbuf, ssize, sdispl, rbuf, rsize, rdispl, pelist)
+subroutine MPP_ALLTOALLV_(sbuf, ssize, sdispl, rbuf, rsize, rdispl, pelist) bind(c)
     MPP_TYPE_, intent(in) :: sbuf(:) !< data to send
     MPP_TYPE_, intent(inout) :: rbuf(:) !< received data
 

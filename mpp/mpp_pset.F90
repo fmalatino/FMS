@@ -96,7 +96,7 @@ module mpp_pset_mod
 
 
 contains
-  subroutine mpp_pset_init
+  subroutine mpp_pset_init () bind(c)
     module_is_initialized = .TRUE.
   end subroutine mpp_pset_init
 
@@ -229,7 +229,7 @@ contains
     pset%initialized = .FALSE.
   end subroutine mpp_pset_delete
 
-  subroutine mpp_send_ptr_scalar( ptr, pe )
+  subroutine mpp_send_ptr_scalar( ptr, pe ) bind(c)
     integer(POINTER_KIND), intent(in) :: ptr
     integer, intent(in) :: pe
 
@@ -238,7 +238,7 @@ contains
     call mpp_send( ptr, pe, tag=COMM_TAG_1 )
   end subroutine mpp_send_ptr_scalar
 
-  subroutine mpp_send_ptr_array( ptr, pe )
+  subroutine mpp_send_ptr_array( ptr, pe ) bind(c)
     integer(POINTER_KIND), intent(in) :: ptr(:)
     integer, intent(in) :: pe
 
@@ -247,7 +247,7 @@ contains
     call mpp_send( ptr, size(ptr), pe, tag=COMM_TAG_2 )
   end subroutine mpp_send_ptr_array
 
-  subroutine mpp_recv_ptr_scalar( ptr, pe )
+  subroutine mpp_recv_ptr_scalar( ptr, pe ) bind(c)
     integer(POINTER_KIND), intent(inout) :: ptr
     integer, intent(in) :: pe
 
@@ -256,7 +256,7 @@ contains
     return
   end subroutine mpp_recv_ptr_scalar
 
-  subroutine mpp_recv_ptr_array( ptr, pe )
+  subroutine mpp_recv_ptr_array( ptr, pe ) bind(c)
     integer(POINTER_KIND), intent(inout) :: ptr(:)
     integer, intent(in) :: pe
     integer :: i
@@ -268,7 +268,7 @@ contains
     return
   end subroutine mpp_recv_ptr_array
 
-  subroutine mpp_translate_remote_ptr( ptr, pe )
+  subroutine mpp_translate_remote_ptr( ptr, pe ) bind(c)
 !modifies the received pointer to correct numerical address
     integer(POINTER_KIND), intent(inout) :: ptr
     integer, intent(in) :: pe

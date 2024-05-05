@@ -41,7 +41,7 @@ contains
 
   !#######################################################################
   !> Initialize the memory module, and record the initial memory use.
-  subroutine mpp_memuse_begin
+  subroutine mpp_memuse_begin () bind(c)
     if(memuse_started) then
        call mpp_error(FATAL, "mpp_memutils_mod: mpp_memuse_begin was already called")
     endif
@@ -53,7 +53,7 @@ contains
   !#######################################################################
   !> End the memory collection, and report on total memory used during the
   !! execution of the model run.
-  subroutine mpp_memuse_end(text, unit)
+  subroutine mpp_memuse_end(text, unit) bind(c)
     character(len=*), intent(in) :: text !< Text to include in memory use statement
     integer, intent(in), optional :: unit !< Fortran unit number where memory report should go.
                                           !! Default is stderr.
@@ -82,7 +82,7 @@ contains
   !#######################################################################
   !> Print the current memory high water mark to stderr, or the unit
   !! specified.
-  subroutine mpp_print_memuse_stats(text, unit)
+  subroutine mpp_print_memuse_stats(text, unit) bind(c)
     character(len=*), intent(in) :: text !< Text to include in memory print statement
     integer, intent(in), optional :: unit !< Fortran unit number where print statement should go.
                                           !! Default is stderr.
@@ -107,7 +107,7 @@ contains
   !> \brief Return the memory high water mark in MiB
   !!
   !! Query the system for the memory high water mark, return the result in MiB.
-  subroutine mpp_mem_dump(memuse)
+  subroutine mpp_mem_dump(memuse) bind(c)
     real, intent(out) :: memuse !< Memory, high water mark, in MiB
 
     interface

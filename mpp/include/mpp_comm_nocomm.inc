@@ -140,7 +140,7 @@ end subroutine mpp_init
 
 !#######################################################################
 !> @brief To be called at the end of a run
-subroutine mpp_exit()
+subroutine mpp_exit() bind(c, name="mpp_exit_nocomm")
   integer :: i, j, k, n, nmax, istat, out_unit
   real    :: t, tmin, tmax, tavg, tstd
   real    :: m, mmin, mmax, mavg, mstd, t_total
@@ -228,7 +228,7 @@ end subroutine mpp_exit
 
 !#######################################################################
   !> Set the mpp_stack variable to be at least n LONG words long
-  subroutine mpp_set_stack_size(n)
+  subroutine mpp_set_stack_size(n) bind(c, name="mpp_set_stack_size_nocomm")
     integer, intent(in) :: n
     character(len=8)    :: text
 
@@ -244,7 +244,7 @@ end subroutine mpp_exit
     return
   end subroutine mpp_set_stack_size
 
-    subroutine mpp_broadcast_char(char_data, length, from_pe, pelist )
+    subroutine mpp_broadcast_char(char_data, length, from_pe, pelist ) bind(c, name="mpp_broadcast_char_nocomm")
       character(len=*), intent(inout) :: char_data(:)
       integer, intent(in) :: length, from_pe
       integer, intent(in), optional :: pelist(:)
@@ -1225,7 +1225,7 @@ end subroutine mpp_exit
 #undef MPP_TYPE_
 #undef MPP_TYPE_CREATE_
 
-subroutine mpp_type_free(dtype)
+subroutine mpp_type_free(dtype) bind(c, name="mpp_type_free_nocomm")
     type(mpp_type), pointer, intent(inout) :: dtype
 
     call mpp_error(NOTE, 'MPP_TYPE_FREE: ' &

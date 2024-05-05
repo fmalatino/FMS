@@ -25,7 +25,7 @@
 !> @{
 
 !> Calculates integer checksum over pelist
-function MPP_CHKSUM_INT_( var, pelist, mask_val )
+function MPP_CHKSUM_INT_( var, pelist, mask_val ) bind(c)
   integer(i8_kind) :: MPP_CHKSUM_INT_
   MPP_TYPE_, intent(in) :: var MPP_RANK_
   integer, optional :: pelist(:)
@@ -47,7 +47,7 @@ function MPP_CHKSUM_INT_( var, pelist, mask_val )
 
 
 !> Handles real mask for easier implementation
-function MPP_CHKSUM_INT_RMASK_( var, pelist, mask_val )
+function MPP_CHKSUM_INT_RMASK_( var, pelist, mask_val ) bind(c)
   integer(KIND=i8_kind) :: MPP_CHKSUM_INT_RMASK_
   MPP_TYPE_, intent(in) :: var MPP_RANK_
   integer, optional :: pelist(:)
