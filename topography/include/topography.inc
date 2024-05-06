@@ -50,7 +50,7 @@
  !! @throws FATAL, shape(zmean) is not equal to (/size(blon)-1,size(blat)-1/)
  !! Check the input grid size and output field size.
 
- function GET_TOPOG_MEAN_1D_(blon, blat, zmean)
+ function GET_TOPOG_MEAN_1D_(blon, blat, zmean) bind(c)
 
    real(kind=FMS_TOP_KIND_), intent(in),  dimension(:)   :: blon !< Longitude (radians) at grid box boundaries
    real(kind=FMS_TOP_KIND_), intent(in),  dimension(:)   :: blat !< Latitude (radians) at grid box boundaries
@@ -76,7 +76,7 @@
 
 !############################################################
 
- function GET_TOPOG_MEAN_2D_(blon, blat, zmean)
+ function GET_TOPOG_MEAN_2D_(blon, blat, zmean) bind(c)
 
    real(kind=FMS_TOP_KIND_), intent(in),  dimension(:,:) :: blon, blat
    real(kind=FMS_TOP_KIND_), intent(out), dimension(:,:) :: zmean
@@ -108,7 +108,7 @@
  !!
  !! @returns A logical value of true if the output field was successfully created and false
  !! if the input topography data set was not readable.
- function GET_TOPOG_STDEV_1D_(blon, blat, stdev)
+ function GET_TOPOG_STDEV_1D_(blon, blat, stdev) bind(c)
 
    real(kind=FMS_TOP_KIND_), intent(in),  dimension(:)   :: blon !< Longitude (radians) at grid box boundaries
    real(kind=FMS_TOP_KIND_), intent(in),  dimension(:)   :: blat !< Latitude (radians) at grid box boundaries
@@ -135,7 +135,7 @@
 
 !#######################################################################
 
- function GET_TOPOG_STDEV_2D_(blon, blat, stdev)
+ function GET_TOPOG_STDEV_2D_(blon, blat, stdev) bind(c)
 
    real(FMS_TOP_KIND_), intent(in),  dimension(:,:) :: blon, blat
    real(FMS_TOP_KIND_), intent(out), dimension(:,:) :: stdev
@@ -162,7 +162,7 @@
  !> @brief Returns fractional area covered by ocean in a grid box.
  !> @returns A logical value of true if the output field was successfully created. A value of false
  !! may be returned if the Navy 1/6 degree percent water data set was not readable.
- function GET_OCEAN_FRAC_1D_(blon, blat, ocean_frac)
+ function GET_OCEAN_FRAC_1D_(blon, blat, ocean_frac) bind(c)
 
  real(FMS_TOP_KIND_), intent(in),  dimension(:)   :: blon !< Longitude (radians) at grid box boundaries
  real(FMS_TOP_KIND_), intent(in),  dimension(:)   :: blat !< Latitude (radians) at grid box boundaries
@@ -187,7 +187,7 @@
 
 !#######################################################################
 
- function GET_OCEAN_FRAC_2D_(blon, blat, ocean_frac)
+ function GET_OCEAN_FRAC_2D_(blon, blat, ocean_frac) bind(c)
 
  real(kind=FMS_TOP_KIND_), intent(in),  dimension(:,:) :: blon, blat
  real(kind=FMS_TOP_KIND_), intent(out), dimension(:,:) :: ocean_frac
@@ -214,7 +214,7 @@
  !> @brief Returns a land-ocean mask in a grid box.
  !> @returns A logical value of true if the output field was successfully created. A value of false
  !! may be returned if the Navy 1/6 degree percent water data set was not readable.
- function GET_OCEAN_MASK_1D_(blon, blat, ocean_mask)
+ function GET_OCEAN_MASK_1D_(blon, blat, ocean_mask) bind(c)
 
  real(kind=FMS_TOP_KIND_), intent(in),  dimension(:)   :: blon !< Longitude (radians) at grid box boundaries
  real(kind=FMS_TOP_KIND_), intent(in),  dimension(:)   :: blat !< Latitude (radians) at grid box boundaries
@@ -242,7 +242,7 @@
 
 !#######################################################################
 
- function GET_OCEAN_MASK_2D_(blon, blat, ocean_mask)
+ function GET_OCEAN_MASK_2D_(blon, blat, ocean_mask) bind(c)
 
  real(kind=FMS_TOP_KIND_), intent(in),  dimension(:,:) :: blon, blat
  logical, intent(out), dimension(:,:) :: ocean_mask
@@ -273,7 +273,7 @@
  !!
  !! @throws FATAL, shape(water_frac) is not equal to (/size(blon)-1,size(blat)-1/)
  !! Check the input grid size and output field size.
- function GET_WATER_FRAC_1D_(blon, blat, water_frac)
+ function GET_WATER_FRAC_1D_(blon, blat, water_frac) bind(c)
  real(kind=FMS_TOP_KIND_), intent(in),  dimension(:)   :: blon !< The longitude (in radians) at grid box boundaries.
  real(kind=FMS_TOP_KIND_), intent(in),  dimension(:)   :: blat !< The latitude (in radians) at grid box boundaries.
  real(kind=FMS_TOP_KIND_), intent(out), dimension(:,:) :: water_frac !< The fractional amount (0 to 1) of water in a
@@ -297,7 +297,7 @@
 
 !#######################################################################
 
- function GET_WATER_FRAC_2D_(blon, blat, water_frac)
+ function GET_WATER_FRAC_2D_(blon, blat, water_frac) bind(c)
 
  real(kind=FMS_TOP_KIND_), intent(in),  dimension(:,:)   :: blon !< The longitude (in radians) at grid box boundaries.
  real(kind=FMS_TOP_KIND_), intent(in),  dimension(:,:)   :: blat !< The latitude (in radians) at grid box boundaries.
@@ -327,7 +327,7 @@
  !> @return A logical value of TRUE is returned if the output field
  !! was successfully created. A value of FALSE may be returned
  !! if the Navy 1/6 degree percent water data set was not readable.
- function GET_WATER_MASK_1D_(blon, blat, water_mask)
+ function GET_WATER_MASK_1D_(blon, blat, water_mask) bind(c)
 
  real(kind=FMS_TOP_KIND_), intent(in),  dimension(:)   :: blon !< The longitude (in radians) at grid box boundaries.
  real(kind=FMS_TOP_KIND_), intent(in),  dimension(:)   :: blat !< The latitude (in radians) at grid box boundaries.
@@ -356,7 +356,7 @@
 
 !#######################################################################
 
- function GET_WATER_MASK_2D_(blon, blat, water_mask)
+ function GET_WATER_MASK_2D_(blon, blat, water_mask) bind(c)
 
  real(kind=FMS_TOP_KIND_), intent(in),  dimension(:,:)   :: blon !< The longitude (in radians) at grid box boundaries.
  real(kind=FMS_TOP_KIND_), intent(in),  dimension(:,:)   :: blat !< The latitude (in radians) at grid box boundaries.
@@ -385,7 +385,7 @@
 
 !#######################################################################
 
-subroutine INTERP_TOPOG_1D_( blon, blat, zout, flag)
+subroutine INTERP_TOPOG_1D_( blon, blat, zout, flag) bind(c)
 real(kind=FMS_TOP_KIND_), intent(in)  :: blon(:), blat(:)
 real(kind=FMS_TOP_KIND_), intent(out) :: zout(:,:)
 integer, intent(in), optional :: flag
@@ -417,7 +417,7 @@ end subroutine INTERP_TOPOG_1D_
 
 !#######################################################################
 
-subroutine INTERP_TOPOG_2D_( blon, blat, zout, flag )
+subroutine INTERP_TOPOG_2D_( blon, blat, zout, flag ) bind(c)
 real(kind=FMS_TOP_KIND_), intent(in)  :: blon(:,:), blat(:,:)
 real(kind=FMS_TOP_KIND_), intent(out) :: zout(:,:)
 integer, intent(in), optional :: flag
@@ -456,7 +456,7 @@ end subroutine INTERP_TOPOG_2D_
 
 !#######################################################################
 
-subroutine FIND_INDICES_( ybeg, yend, ydat, js, je )
+subroutine FIND_INDICES_( ybeg, yend, ydat, js, je ) bind(c)
 real(kind=FMS_TOP_KIND_), intent(in)  :: ybeg, yend, ydat(:)
 integer,                  intent(out) :: js, je
 integer                               :: j
@@ -483,7 +483,7 @@ integer, parameter                    :: lkind = FMS_TOP_KIND_
 end subroutine FIND_INDICES_
 
 !#######################################################################
-subroutine INPUT_DATA_( indx, xdat, ydat, zdat )
+subroutine INPUT_DATA_( indx, xdat, ydat, zdat ) bind(c)
 integer, intent(in) :: indx
 real(kind=FMS_TOP_KIND_), intent(out) :: xdat(ipts+1), ydat(jpts+1), zdat(ipts,jpts)
 
@@ -497,7 +497,7 @@ end subroutine INPUT_DATA_
 
 !#######################################################################
 
-subroutine INTERP_WATER_1D_( blon, blat, zout, do_ocean )
+subroutine INTERP_WATER_1D_( blon, blat, zout, do_ocean ) bind(c)
 real(kind=FMS_TOP_KIND_), intent(in)  :: blon(:), blat(:)
 real(kind=FMS_TOP_KIND_), intent(out) :: zout(:,:)
 logical, intent(in), optional :: do_ocean
@@ -516,7 +516,7 @@ end subroutine INTERP_WATER_1D_
 
 !#######################################################################
 
-subroutine INTERP_WATER_2D_( blon, blat, zout, do_ocean )
+subroutine INTERP_WATER_2D_( blon, blat, zout, do_ocean ) bind(c)
 real(kind=FMS_TOP_KIND_), intent(in)  :: blon(:,:), blat(:,:)
 real(kind=FMS_TOP_KIND_), intent(out) :: zout(:,:)
 logical, intent(in), optional :: do_ocean
@@ -536,7 +536,7 @@ end subroutine INTERP_WATER_2D_
 
 !#######################################################################
 
-subroutine DETERMINE_OCEAN_POINTS_(pctwater)
+subroutine DETERMINE_OCEAN_POINTS_(pctwater) bind(c)
 real(kind=FMS_TOP_KIND_), intent(inout) :: pctwater(:,:)
 logical :: ocean(size(pctwater,1),size(pctwater,2))
 integer :: i, j, m, n, im, ip, jm, jp, new

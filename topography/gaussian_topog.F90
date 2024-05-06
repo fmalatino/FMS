@@ -121,7 +121,7 @@ contains
 
 !#######################################################################
 
-subroutine read_namelist
+subroutine read_namelist () bind(c, name="read_name_list_gauss")
 
    integer :: iunit, ierr, io
 

@@ -37,7 +37,7 @@
 !> Returns a surface height field that consists
 !! of the sum of one or more Gaussian-shaped mountains.
 !!
-subroutine GAUSSIAN_TOPOG_INIT_ ( lon, lat, zsurf )
+subroutine GAUSSIAN_TOPOG_INIT_ ( lon, lat, zsurf ) bind(c)
 
 real(kind=FMS_TOP_KIND_), intent(in)  :: lon(:) !< The mean grid box longitude in radians
 real(kind=FMS_TOP_KIND_), intent(in)  :: lat(:) !< The mean grid box latitude in radians

@@ -270,7 +270,7 @@ contains
 
 !#######################################################################
 
-subroutine topography_init ()
+subroutine topography_init () bind(c)
    if ( module_is_initialized ) return
    call write_version_number("TOPOGRAPHY_MOD", version)
    call read_namelist
@@ -282,7 +282,7 @@ end subroutine topography_init
 !##################   private interfaces below here   ##################
 !#######################################################################
 
-function open_topog_file ( )
+function open_topog_file ( ) bind(c)
 logical :: open_topog_file
 real(kind=r4_kind)    :: r_ipts, r_jpts
 integer :: namelen
@@ -309,7 +309,7 @@ namelen = len(trim(topog_file))
 
 end function open_topog_file
 
-function open_water_file ( )
+function open_water_file ( ) bind(c)
 logical :: open_water_file
 real(kind=r4_kind)    :: r_ipts, r_jpts
 integer :: namelen
@@ -341,7 +341,7 @@ end function open_water_file
 
 !> @brief Reads the namelist file, write namelist to log file,
 !! and initializes constants
-subroutine read_namelist
+subroutine read_namelist () bind(c, name="read_namelist_topog")
 
 integer :: iunit, ierr, io
 
