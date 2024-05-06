@@ -437,7 +437,7 @@ contains
  end function set_time_c
 !---------------------------------------------------------------------------
 
- function get_tick_from_string(string, err_msg, allow_rounding, tick)
+ function get_tick_from_string(string, err_msg, allow_rounding, tick) bind(c)
 
  logical :: get_tick_from_string
  character(len=*), intent(in) :: string
@@ -916,7 +916,7 @@ end function
 
 !> @brief Convert a floating point value to an integer value.
 !! @return The integer value, using the input rounding mode.
-function safe_rtoi(rval,mode) result(ival)
+function safe_rtoi(rval,mode) result(ival) bind(c)
   real(r8_kind),intent(in) :: rval !< A floating point value.
   integer,intent(in) :: mode !< A rouding mode (either "do_floor" or
                              !! "do_nearest")
@@ -1071,7 +1071,7 @@ end function repeat_alarm
 !! For the Gregorian calendar, negative years and the proleptic calendar are not used;
 !! and the discontinuity of days in October 1582 (when the Gregorian calendar was adopted by select groups in Europe)
 !! is also not taken into account.
-subroutine set_calendar_type(type, err_msg)
+subroutine set_calendar_type(type, err_msg) bind(c)
 
 ! Selects calendar for default mapping from time to date.
 
@@ -1102,7 +1102,7 @@ end subroutine set_calendar_type
 !------------------------------------------------------------------------
 
 !> Returns default calendar type for mapping from time to date.
-function get_calendar_type()
+function get_calendar_type() bind(c)
 
 integer :: get_calendar_type
 
@@ -1113,7 +1113,7 @@ end function get_calendar_type
 !------------------------------------------------------------------------
 
 !> Sets the number of ticks per second.
-subroutine set_ticks_per_second(tps)
+subroutine set_ticks_per_second(tps) bind(c)
 integer, intent(in) :: tps
 
 ticks_per_second = tps
@@ -1123,7 +1123,7 @@ end subroutine set_ticks_per_second
 !------------------------------------------------------------------------
 
 !> Returns the number of ticks per second.
-function get_ticks_per_second()
+function get_ticks_per_second() bind(c)
 integer :: get_ticks_per_second
 
 get_ticks_per_second = ticks_per_second
@@ -2252,7 +2252,7 @@ end function leap_year_gregorian
 
 !--------------------------------------------------------------------------
 
-function leap_year_gregorian_int(year)
+function leap_year_gregorian_int(year) bind(c)
 logical :: leap_year_gregorian_int
 integer, intent(in) :: year
 
@@ -2507,7 +2507,7 @@ end function month_name
 !------------------------------------------------------------------------
 
 !> Initialization routine. Writes the version information to the log file
-subroutine time_manager_init ( )
+subroutine time_manager_init ( ) bind(c)
 
   if (module_is_initialized) return  ! silent return if already called
 
