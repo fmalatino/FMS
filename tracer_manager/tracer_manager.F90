@@ -190,7 +190,7 @@ contains
 !> @brief Not necessary to call, only needed for backward compatability.
 !!
 !> Writes version to logfile and sets init flag for this module
-subroutine tracer_manager_init
+subroutine tracer_manager_init () bind(c)
 integer :: model, num_tracers, num_prog, num_diag
 
   if(module_is_initialized) return
@@ -207,7 +207,7 @@ end subroutine tracer_manager_init
 
 !> @brief Read in tracer table and store tracer information associated with "model" in "tracers"
 !! array.
-subroutine get_tracer_meta_data(model, num_tracers,num_prog,num_diag)
+subroutine get_tracer_meta_data(model, num_tracers,num_prog,num_diag) bind(c)
 
 integer,  intent(in) :: model !< model being used
 integer, intent(out) :: num_tracers, num_prog, num_diag
@@ -553,7 +553,7 @@ endif
 
 end subroutine get_tracer_meta_data
 
-function model_tracer_number(model,n)
+function model_tracer_number(model,n) bind(c)
 integer, intent(in) :: model, n
 integer model_tracer_number
 
@@ -575,7 +575,7 @@ end function model_tracer_number
 !> @brief Not necessary to call, only needed for backward compatability.
 !!
 !> Returns the total number of valid, prognostic and diagnostic tracers.
-subroutine register_tracers(model, num_tracers, num_prog, num_diag, num_family)
+subroutine register_tracers(model, num_tracers, num_prog, num_diag, num_family) bind(c)
 integer, intent(in) :: model !< A parameter to identify which model is being used.
 integer, intent(out) :: num_tracers !< The total number of valid tracers within the component model.
 integer, intent(out) :: num_prog !< The number of prognostic tracers within the component model.
@@ -594,7 +594,7 @@ end subroutine register_tracers
 !!
 !> This routine returns the total number of valid tracers,
 !! the number of prognostic and diagnostic tracers
-subroutine get_number_tracers(model, num_tracers, num_prog, num_diag, num_family)
+subroutine get_number_tracers(model, num_tracers, num_prog, num_diag, num_family) bind(c)
 
 integer,  intent(in) :: model !< A parameter to identify which model is being used
 integer, intent(out), optional :: num_tracers !< The total number of valid tracers within
@@ -637,7 +637,7 @@ end subroutine get_number_tracers
 !! the prognostic tracers within the component model.
 !> @param diag_ind An array containing the tracer manager defined indices for
 !! the diagnostic tracers within the component model.
-subroutine get_tracer_indices(model, ind, prog_ind, diag_ind, fam_ind)
+subroutine get_tracer_indices(model, ind, prog_ind, diag_ind, fam_ind) bind(c)
 
 integer, intent(in) :: model
 integer, intent(out), dimension(:), optional :: ind, prog_ind, diag_ind, fam_ind
@@ -735,7 +735,7 @@ end subroutine get_tracer_indices
 !!
 !> See @ref get_tracer_index Interface for more information.
 !! @returns index of given tracer name if present, otherwise returns NO_TRACER
-function get_tracer_index_integer(model, name, indices, verbose)
+function get_tracer_index_integer(model, name, indices, verbose) bind(c)
 
 integer, intent(in)                         :: model !< Parameter to identify which model is used
 character(len=*), intent(in)                :: name !< name of the tracer
@@ -784,7 +784,7 @@ end function get_tracer_index_integer
 
 !#######################################################################
 !> @brief Checks if tracer is present, and returns it's position in index
-function get_tracer_index_logical(model, name, index, indices, verbose)
+function get_tracer_index_logical(model, name, index, indices, verbose) bind(c)
 
 integer, intent(in)                         :: model !< Parameter for which model is used
 character(len=*), intent(in)                :: name !< name of given drifter
@@ -805,7 +805,7 @@ end function get_tracer_index_logical
 !#######################################################################
 
 !> @brief Uninitializes module and writes exit to logfile.
-subroutine tracer_manager_end
+subroutine tracer_manager_end () bind(c)
 
 integer :: log_unit
 
@@ -823,7 +823,7 @@ end subroutine tracer_manager_end
 !> @brief Routine to print out the components of the tracer.
 !! This is useful for informational purposes.
 !! Used in get_tracer_meta_data.
-subroutine print_tracer_info(model,n)
+subroutine print_tracer_info(model,n) bind(c)
 integer, intent(in) :: model
 integer, intent(in) :: n !< index of the tracer that is being printed
 integer :: i, log_unit
@@ -852,7 +852,7 @@ end subroutine print_tracer_info
 !!
 !> This routine can return the name, long name and units associated
 !! with a tracer.
-subroutine get_tracer_names(model,n,name,longname, units, err_msg)
+subroutine get_tracer_names(model,n,name,longname, units, err_msg) bind(c)
 
 integer,          intent(in)  :: model !< A parameter representing component model in use
 integer,          intent(in)  :: n !< Tracer number
@@ -886,7 +886,7 @@ end subroutine get_tracer_names
 !> This routine can return the name, long name and units associated with a tracer.
 !! The return value of get_tracer_name is .false. when a FATAL error condition is
 !! detected, otherwise the return value is .true.
-function get_tracer_name(model,n,name,longname, units, err_msg)
+function get_tracer_name(model,n,name,longname, units, err_msg) bind(c)
 
 integer,          intent(in)  :: model !< A parameter representing component model in use
 integer,          intent(in)  :: n !< Tracer number
@@ -937,7 +937,7 @@ end function get_tracer_name
 !! to the tracer description in field_table.
 !!
 !! @returns A logical flag set TRUE if the tracer is prognostic.
-function check_if_prognostic(model, n, err_msg)
+function check_if_prognostic(model, n, err_msg) bind(c)
 
 integer, intent(in) :: model !< Parameter representing component model in use
 integer, intent(in) :: n !< Tracer number
@@ -964,7 +964,7 @@ end function check_if_prognostic
 ! Does tracer need mass or positive definite adjustments?
 !#######################################################################
 !> Function to check whether tracer should have its mass adjusted
-function adjust_mass(model, n, err_msg)
+function adjust_mass(model, n, err_msg) bind(c)
 
 integer, intent(in) :: model, n
 logical             :: adjust_mass
@@ -988,7 +988,7 @@ adjust_mass = tracers(TRACER_ARRAY(model,n))%needs_mass_adjust
 end function adjust_mass
 
 ! Function to check whether tracer should be adjusted to remain positive definite
-function adjust_positive_def(model, n, err_msg)
+function adjust_positive_def(model, n, err_msg) bind(c)
 
 integer, intent(in) :: model, n
 logical             :: adjust_positive_def
@@ -1038,7 +1038,7 @@ end function adjust_positive_def
 !!  |profile_type |profile      |surface_value = X, top_value = Y    |(atmosphere)
 !!  |profile_type |profile      |surface_value = X, bottom_value = Y |(ocean)
 !!  ==================================================================
- function query_method  (method_type, model, n, name, control, err_msg)
+ function query_method  (method_type, model, n, name, control, err_msg) bind(c)
 
  character(len=*), intent(in)            :: method_type !< The requested method
  integer         , intent(in)            :: model !< Model the function is being called from
@@ -1111,7 +1111,7 @@ end function adjust_positive_def
 !! coding the tracer code will know what units they are working in and it
 !! is probably safer to set the value in the tracer code rather than in
 !! the field table.
-subroutine set_tracer_atts(model, name, longname, units)
+subroutine set_tracer_atts(model, name, longname, units) bind(c)
 
 integer, intent(in)                    :: model !< A parameter representing component model in use
 character(len=*), intent(in)           :: name !< Tracer name
@@ -1159,7 +1159,7 @@ endif
 end subroutine set_tracer_atts
 
 !> @brief A subroutine to allow the user to set some tracer specific methods.
-subroutine set_tracer_method(model, name, method_type, method_name, method_control)
+subroutine set_tracer_method(model, name, method_type, method_name, method_control) bind(c)
 
 integer, intent(in)                    :: model !< A parameter representing component model in use
 character(len=*), intent(in)           :: name !< Tracer name

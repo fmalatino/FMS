@@ -44,7 +44,7 @@
 !!
 !!   If you wish to initialize the ocean model, one can use bottom_value instead
 !!   of top_value.
-subroutine SET_TRACER_PROFILE_(model, n, tracer, err_msg)
+subroutine SET_TRACER_PROFILE_(model, n, tracer, err_msg) bind(c)
 
 integer, intent(in) :: model !< Parameter representing component model in use
 integer, intent(in) :: n !< Tracer number
