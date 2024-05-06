@@ -782,7 +782,7 @@ private
 
 contains
 
- subroutine sat_vapor_pres_init(err_msg)
+ subroutine sat_vapor_pres_init(err_msg) bind(c)
 
 !  =================================================================
 !  +                                                               +

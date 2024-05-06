@@ -172,7 +172,7 @@ module time_interp_external_mod
 ! Initialize the time_interp_external module
 ! </DESCRIPTION>
 !
-    subroutine time_interp_external_init()
+    subroutine time_interp_external_init() bind(c)
 
       integer :: ioun, io_status, logunit, ierr
 
@@ -273,7 +273,7 @@ module time_interp_external_mod
     !> @param [inout] axis_sizes array of axis lengths ordered X-Y-Z-T (optional).
     function init_external_field(file,fieldname,format,threading,domain,desired_units,&
          verbose,axis_centers,axis_sizes,override,correct_leap_year_inconsistency,&
-         permit_calendar_conversion,use_comp_domain,ierr, nwindows, ignore_axis_atts )
+         permit_calendar_conversion,use_comp_domain,ierr, nwindows, ignore_axis_atts ) bind(c)
 
       character(len=*), intent(in)            :: file,fieldname
       integer, intent(in), optional           :: format, threading
@@ -699,7 +699,7 @@ module time_interp_external_mod
 
     !> @brief 2D time interpolation for @ref time_interp_external
     subroutine time_interp_external_2d(index, time, data_in, interp, verbose,horz_interp, mask_out, &
-               is_in, ie_in, js_in, je_in, window_id)
+               is_in, ie_in, js_in, je_in, window_id) bind(c)
 
       integer, intent(in) :: index
       type(time_type), intent(in) :: time
@@ -750,7 +750,7 @@ module time_interp_external_mod
 
     !> @brief 3D time interpolation for @ref time_interp_external
     subroutine time_interp_external_3d(index, time, data, interp,verbose,horz_interp, mask_out, is_in, ie_in, &
-                                      &  js_in, je_in, window_id)
+                                      &  js_in, je_in, window_id) bind(c)
 
       integer,                    intent(in)           :: index
       type(time_type),            intent(in)           :: time
@@ -912,7 +912,7 @@ module time_interp_external_mod
 !</SUBROUTINE> NAME="time_interp_external"
 
     !> @brief Scalar time interpolation for @ref time_interp_external
-    subroutine time_interp_external_0d(index, time, data, verbose)
+    subroutine time_interp_external_0d(index, time, data, verbose) bind(c)
 
       integer, intent(in) :: index
       type(time_type), intent(in) :: time
@@ -985,7 +985,7 @@ module time_interp_external_mod
 
     end subroutine time_interp_external_0d
 
-    subroutine set_time_modulo(Time)
+    subroutine set_time_modulo(Time) bind(c)
 
       type(time_type), intent(inout), dimension(:) :: Time
 
@@ -1005,7 +1005,7 @@ module time_interp_external_mod
 
 ! ============================================================================
 ! load specified record from file
-subroutine load_record(field, rec, interp, is_in, ie_in, js_in, je_in, window_id_in)
+subroutine load_record(field, rec, interp, is_in, ie_in, js_in, je_in, window_id_in) bind(c)
   type(ext_fieldtype),     intent(inout)        :: field
   integer            ,     intent(in)           :: rec    ! record number
   type(horiz_interp_type), intent(in), optional :: interp
@@ -1118,7 +1118,7 @@ subroutine load_record(field, rec, interp, is_in, ie_in, js_in, je_in, window_id
 end subroutine load_record
 
 
-subroutine load_record_0d(field, rec)
+subroutine load_record_0d(field, rec) bind(c)
   type(ext_fieldtype),     intent(inout)        :: field
   integer            ,     intent(in)           :: rec    ! record number
   ! ---- local vars
@@ -1154,7 +1154,7 @@ subroutine load_record_0d(field, rec)
 end subroutine load_record_0d
 
 ! ============================================================================
-subroutine reset_src_data_region(index, is, ie, js, je)
+subroutine reset_src_data_region(index, is, ie, js, je) bind(c)
    integer, intent(in) :: index
    integer, intent(in) :: is, ie, js, je
    integer             :: nk, nbuf
@@ -1177,7 +1177,7 @@ subroutine reset_src_data_region(index, is, ie, js, je)
 end subroutine reset_src_data_region
 
 ! ============================================================================
-subroutine set_override_region(index, region_type, is_region, ie_region, js_region, je_region)
+subroutine set_override_region(index, region_type, is_region, ie_region, js_region, je_region) bind(c)
    integer, intent(in) :: index, region_type
    integer, intent(in) :: is_region, ie_region, js_region, je_region
 
@@ -1193,7 +1193,7 @@ end subroutine set_override_region
 
 ! ============================================================================
 ! reallocates array of fields, increasing its size
-subroutine realloc_files(n)
+subroutine realloc_files(n) bind(c)
   integer, intent(in) :: n ! new size
 
   type(filetype), pointer :: ptr(:)
@@ -1219,7 +1219,7 @@ end subroutine realloc_files
 
 ! ============================================================================
 ! reallocates array of fields,increasing its size
-subroutine realloc_fields(n)
+subroutine realloc_fields(n) bind(c)
   integer, intent(in) :: n ! new size
 
   type(ext_fieldtype), pointer :: ptr(:)
@@ -1263,7 +1263,7 @@ subroutine realloc_fields(n)
 end subroutine realloc_fields
 
 
-    function find_buf_index(indx,buf)
+    function find_buf_index(indx,buf) bind(c)
       integer :: indx
       integer, dimension(:) :: buf
       integer :: find_buf_index
@@ -1295,7 +1295,7 @@ end subroutine realloc_fields
 ! returned from previous call to init_external_field.
 !</IN>
 
-    function get_external_field_size(index)
+    function get_external_field_size(index) bind(c)
 
       integer :: index
       integer :: get_external_field_size(4)
@@ -1323,7 +1323,7 @@ end subroutine realloc_fields
 ! returned from previous call to init_external_field.
 !</IN>
 
-    function get_external_field_missing(index)
+    function get_external_field_missing(index) bind(c)
 
       integer :: index
       real :: get_external_field_missing
@@ -1350,7 +1350,7 @@ end subroutine realloc_fields
 !</IN>
 
 
-    function get_external_field_axes(index)
+    function get_external_field_axes(index) bind(c)
 
       integer :: index
       type(axistype), dimension(4) :: get_external_field_axes
@@ -1368,7 +1368,7 @@ end subroutine realloc_fields
 !</FUNCTION> NAME="get_external_field_axes"
 
 ! ===========================================================================
-subroutine get_time_axis(index, time)
+subroutine get_time_axis(index, time) bind(c)
   integer        , intent(in)  :: index   ! field id
   type(time_type), intent(out) :: time(:) ! array of time values to be filled
 
@@ -1389,7 +1389,7 @@ end subroutine
 ! release storage
 !</DESCRIPTION>
 
-    subroutine time_interp_external_exit()
+    subroutine time_interp_external_exit() bind(c)
 
       integer :: i,j
 !

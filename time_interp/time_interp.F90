@@ -160,7 +160,7 @@ integer, public, parameter :: NONE=0, YEAR=1, MONTH=2, DAY=3
 contains
 
 
- subroutine time_interp_init()
+ subroutine time_interp_init() bind(c)
    integer :: ierr, io, logunit
 
    if ( module_is_initialized ) return

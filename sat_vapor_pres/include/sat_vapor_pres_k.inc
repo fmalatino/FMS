@@ -39,7 +39,7 @@
                                   use_exact_qs_input, do_simple,  &
                                   construct_table_wrt_liq, &
                                   construct_table_wrt_liq_and_ice, &
-                                  teps, tmin, dtinv)
+                                  teps, tmin, dtinv) bind(c)
 
  integer, intent(in) :: table_size
  real(kind=FMS_SVP_KIND_), intent(in) :: tcmin   !< TABLE(1) = sat vapor pressure at temperature tcmin (deg C)
@@ -390,7 +390,7 @@
 !#######################################################################
 
  subroutine COMPUTE_QS_K_3D_ (temp, press, eps, zvir, qs, nbad, q, hc, &
-                          dqsdT, esat, es_over_liq, es_over_liq_and_ice)
+                          dqsdT, esat, es_over_liq, es_over_liq_and_ice) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:,:) :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:,:) :: press !< pressure
@@ -483,7 +483,7 @@
 !#######################################################################
 
  subroutine COMPUTE_QS_K_2D_ (temp, press, eps, zvir, qs, nbad, q, hc, &
-                          dqsdT, esat, es_over_liq, es_over_liq_and_ice)
+                          dqsdT, esat, es_over_liq, es_over_liq_and_ice) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:) :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:) :: press !< pressure
@@ -575,7 +575,7 @@
 !#######################################################################
 
  subroutine COMPUTE_QS_K_1D_ (temp, press, eps, zvir, qs, nbad, q, hc, &
-                          dqsdT, esat, es_over_liq, es_over_liq_and_ice)
+                          dqsdT, esat, es_over_liq, es_over_liq_and_ice) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:) :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:) :: press !< pressure
@@ -665,7 +665,7 @@
 !#######################################################################
 
  subroutine COMPUTE_QS_K_0D_ (temp, press, eps, zvir, qs, nbad, q, hc, &
-                          dqsdT, esat, es_over_liq, es_over_liq_and_ice)
+                          dqsdT, esat, es_over_liq, es_over_liq_and_ice) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(in)  :: press !< pressure
@@ -752,7 +752,7 @@
 !#######################################################################
 
  subroutine COMPUTE_MRS_K_3D_ (temp, press, eps, zvir, mrs, nbad,   &
-                 mr, hc, dmrsdT, esat,es_over_liq, es_over_liq_and_ice)
+                 mr, hc, dmrsdT, esat,es_over_liq, es_over_liq_and_ice) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:,:) :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:,:) :: press !< pressure
@@ -846,7 +846,7 @@
 !#######################################################################
 
  subroutine COMPUTE_MRS_K_2D_ (temp, press, eps, zvir, mrs, nbad,  &
-                 mr, hc, dmrsdT, esat,es_over_liq, es_over_liq_and_ice)
+                 mr, hc, dmrsdT, esat,es_over_liq, es_over_liq_and_ice) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:) :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:) :: press !< pressure
@@ -938,7 +938,7 @@
 !#######################################################################
 
  subroutine COMPUTE_MRS_K_1D_ (temp, press, eps, zvir, mrs, nbad,  &
-                 mr, hc, dmrsdT, esat,es_over_liq, es_over_liq_and_ice)
+                 mr, hc, dmrsdT, esat,es_over_liq, es_over_liq_and_ice) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:)           :: temp   !< temperature
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:)           :: press  !< pressure
@@ -1028,7 +1028,7 @@
 !#######################################################################
 
  subroutine COMPUTE_MRS_K_0D_ (temp, press, eps, zvir, mrs, nbad,   &
-                 mr, hc, dmrsdT, esat,es_over_liq, es_over_liq_and_ice)
+                 mr, hc, dmrsdT, esat,es_over_liq, es_over_liq_and_ice) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(in)  :: press !< pressure
@@ -1115,7 +1115,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES_DES_K_3D_ (temp, esat, desat, nbad)
+ subroutine LOOKUP_ES_DES_K_3D_ (temp, esat, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:,:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:,:)  :: esat  !<saturation vapor pressure
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:,:)  :: desat !< derivative of saturation vapor pressure
@@ -1166,7 +1166,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES_DES_K_2D_ (temp, esat, desat, nbad)
+ subroutine LOOKUP_ES_DES_K_2D_ (temp, esat, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:) :: temp  !<  temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:) :: esat  !< saturation vapor pressure
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:) :: desat !< derivative of the saturation vapor pressure
@@ -1215,7 +1215,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES_DES_K_1D_ (temp, esat, desat, nbad)
+ subroutine LOOKUP_ES_DES_K_1D_ (temp, esat, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:) :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:) :: esat  !< saturation vapor pressure
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:) :: desat !< derivative of the saturation vapor pressure
@@ -1263,7 +1263,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES_DES_K_0D_ (temp, esat, desat, nbad)
+ subroutine LOOKUP_ES_DES_K_0D_ (temp, esat, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out) :: esat  !< saturation vapor pressure
  real(kind=FMS_SVP_KIND_), intent(out) :: desat !< derivative of the saturation vapor pressure
@@ -1308,7 +1308,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES_K_3D_(temp, esat, nbad)
+ subroutine LOOKUP_ES_K_3D_(temp, esat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:,:)  :: temp !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:,:)  :: esat !< saturavation vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -1352,7 +1352,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_DES_K_3D_(temp, desat, nbad)
+ subroutine LOOKUP_DES_K_3D_(temp, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:,:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:,:)  :: desat !< derivative of sat vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -1395,7 +1395,7 @@
  end subroutine LOOKUP_DES_K_3D_
 
 !#######################################################################
- subroutine LOOKUP_DES_K_2D_(temp, desat, nbad)
+ subroutine LOOKUP_DES_K_2D_(temp, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:)  :: desat !< derivative of sat vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -1436,7 +1436,7 @@
 
  end subroutine LOOKUP_DES_K_2D_
 !#######################################################################
- subroutine LOOKUP_ES_K_2D_(temp, esat, nbad)
+ subroutine LOOKUP_ES_K_2D_(temp, esat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:)  :: temp !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:)  :: esat !< saturation vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -1477,7 +1477,7 @@
 
  end subroutine LOOKUP_ES_K_2D_
 !#######################################################################
- subroutine LOOKUP_DES_K_1D_(temp, desat, nbad)
+ subroutine LOOKUP_DES_K_1D_(temp, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:)  :: desat !< derivative of sat vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -1515,7 +1515,7 @@
 
  end subroutine LOOKUP_DES_K_1D_
 !#######################################################################
- subroutine LOOKUP_ES_K_1D_(temp, esat, nbad)
+ subroutine LOOKUP_ES_K_1D_(temp, esat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:)  :: temp !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:)  :: esat !< saturation vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -1553,7 +1553,7 @@
 
  end subroutine LOOKUP_ES_K_1D_
 !#######################################################################
- subroutine LOOKUP_DES_K_0D_(temp, desat, nbad)
+ subroutine LOOKUP_DES_K_0D_(temp, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out) :: desat !< derivative of sat vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -1589,7 +1589,7 @@
 
  end subroutine LOOKUP_DES_K_0D_
 !#######################################################################
- subroutine LOOKUP_ES_K_0D_(temp, esat, nbad)
+ subroutine LOOKUP_ES_K_0D_(temp, esat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in)     :: temp !< temperature
  real(kind=FMS_SVP_KIND_), intent(out)    :: esat !< saturation vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -1626,7 +1626,7 @@
  end subroutine LOOKUP_ES_K_0D_
 !#######################################################################
 
- subroutine LOOKUP_ES2_DES2_K_3D_ (temp, esat, desat, nbad)
+ subroutine LOOKUP_ES2_DES2_K_3D_ (temp, esat, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:,:) :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:,:) :: esat  !< saturation vapor pressure
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:,:) :: desat !< derivative of sat vapor pressure
@@ -1677,7 +1677,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES2_DES2_K_2D_ (temp, esat, desat, nbad)
+ subroutine LOOKUP_ES2_DES2_K_2D_ (temp, esat, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:)  :: esat  !< saturation vapor pressure
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:)  :: desat !< derivative of sat vapor pressure
@@ -1726,7 +1726,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES2_DES2_K_1D_ (temp, esat, desat, nbad)
+ subroutine LOOKUP_ES2_DES2_K_1D_ (temp, esat, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:)  :: esat  !< saturation vapor pressure
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:)  :: desat !< derivative of sat vapor pressure
@@ -1772,7 +1772,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES2_DES2_K_0D_ (temp, esat, desat, nbad)
+ subroutine LOOKUP_ES2_DES2_K_0D_ (temp, esat, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in)     :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out)    :: esat  !< saturation vapor pressure
  real(kind=FMS_SVP_KIND_), intent(out)    :: desat !< derivative of sat vapor pressure
@@ -1818,7 +1818,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES2_K_3D_(temp, esat, nbad)
+ subroutine LOOKUP_ES2_K_3D_(temp, esat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:,:)  :: temp !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:,:)  :: esat !< saturation vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -1862,7 +1862,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_DES2_K_3D_(temp, desat, nbad)
+ subroutine LOOKUP_DES2_K_3D_(temp, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:,:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:,:)  :: desat !< derivative of sat vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -1905,7 +1905,7 @@
  end subroutine LOOKUP_DES2_K_3D_
 
 !#######################################################################
- subroutine LOOKUP_DES2_K_2D_(temp, desat, nbad)
+ subroutine LOOKUP_DES2_K_2D_(temp, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:)  :: desat !< derivative of sat vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -1945,7 +1945,7 @@
 
  end subroutine LOOKUP_DES2_K_2D_
 !#######################################################################
- subroutine LOOKUP_ES2_K_2D_(temp, esat, nbad)
+ subroutine LOOKUP_ES2_K_2D_(temp, esat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:)  :: temp !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:)  :: esat !< saturation vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -1985,7 +1985,7 @@
 
  end subroutine LOOKUP_ES2_K_2D_
 !#######################################################################
- subroutine LOOKUP_DES2_K_1D_(temp, desat, nbad)
+ subroutine LOOKUP_DES2_K_1D_(temp, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:)  :: desat !< derivative of sat vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -2023,7 +2023,7 @@
 
  end subroutine LOOKUP_DES2_K_1D_
 !#######################################################################
- subroutine LOOKUP_ES2_K_1D_(temp, esat, nbad)
+ subroutine LOOKUP_ES2_K_1D_(temp, esat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:)  :: temp !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:)  :: esat !< saturation vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -2061,7 +2061,7 @@
 
  end subroutine LOOKUP_ES2_K_1D_
 !#######################################################################
- subroutine LOOKUP_DES2_K_0D_(temp, desat, nbad)
+ subroutine LOOKUP_DES2_K_0D_(temp, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in)     :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out)    :: desat !< derivative of sat vapor pressure
  integer, intent(out)        :: nbad !< if temperature is out of range
@@ -2097,7 +2097,7 @@
 
  end subroutine LOOKUP_DES2_K_0D_
 !#######################################################################
- subroutine LOOKUP_ES2_K_0D_(temp, esat, nbad)
+ subroutine LOOKUP_ES2_K_0D_(temp, esat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in)     :: temp !< temperature
  real(kind=FMS_SVP_KIND_), intent(out)    :: esat !< saturation vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -2136,7 +2136,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES3_DES3_K_3D_ (temp, esat, desat, nbad)
+ subroutine LOOKUP_ES3_DES3_K_3D_ (temp, esat, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:,:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:,:)  :: esat  !< saturation vapor pressure
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:,:)  :: desat !< derivative of esat
@@ -2187,7 +2187,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES3_DES3_K_2D_ (temp, esat, desat, nbad)
+ subroutine LOOKUP_ES3_DES3_K_2D_ (temp, esat, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:)  :: esat  !< saturation vapor pressure
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:)  :: desat !< derivative of desat
@@ -2236,7 +2236,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES3_DES3_K_1D_ (temp, esat, desat, nbad)
+ subroutine LOOKUP_ES3_DES3_K_1D_ (temp, esat, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:)  :: esat  !< saturation vapor pressure
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:)  :: desat !< derivative of esat
@@ -2283,7 +2283,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES3_DES3_K_0D_ (temp, esat, desat, nbad)
+ subroutine LOOKUP_ES3_DES3_K_0D_ (temp, esat, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out) :: esat  !< saturation vapor pressure
  real(kind=FMS_SVP_KIND_), intent(out) :: desat !< derivative of esat
@@ -2328,7 +2328,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_ES3_K_3D_(temp, esat, nbad)
+ subroutine LOOKUP_ES3_K_3D_(temp, esat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:,:)  :: temp !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:,:)  :: esat !< saturation vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -2372,7 +2372,7 @@
 
 !#######################################################################
 
- subroutine LOOKUP_DES3_K_3D_(temp, desat, nbad)
+ subroutine LOOKUP_DES3_K_3D_(temp, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:,:)  :: temp !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:,:)  :: desat!< derivatove of saturation vap pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -2415,7 +2415,7 @@
  end subroutine LOOKUP_DES3_K_3D_
 
 !#######################################################################
- subroutine LOOKUP_DES3_K_2D_(temp, desat, nbad)
+ subroutine LOOKUP_DES3_K_2D_(temp, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:)  :: desat !< derivative of sat vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -2455,7 +2455,7 @@
 
  end subroutine LOOKUP_DES3_K_2D_
 !#######################################################################
- subroutine LOOKUP_ES3_K_2D_(temp, esat, nbad)
+ subroutine LOOKUP_ES3_K_2D_(temp, esat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:,:)  :: temp !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:,:)  :: esat !< saturation vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -2495,7 +2495,7 @@
 
  end subroutine LOOKUP_ES3_K_2D_
 !#######################################################################
- subroutine LOOKUP_DES3_K_1D_(temp, desat, nbad)
+ subroutine LOOKUP_DES3_K_1D_(temp, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:)  :: desat !< derivative of sat vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -2533,7 +2533,7 @@
 
  end subroutine LOOKUP_DES3_K_1D_
 !#######################################################################
- subroutine LOOKUP_ES3_K_1D_(temp, esat, nbad)
+ subroutine LOOKUP_ES3_K_1D_(temp, esat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in),  dimension(:)  :: temp !< temperature
  real(kind=FMS_SVP_KIND_), intent(out), dimension(:)  :: esat !< saturation vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -2571,7 +2571,7 @@
 
  end subroutine LOOKUP_ES3_K_1D_
 !#######################################################################
- subroutine LOOKUP_DES3_K_0D_(temp, desat, nbad)
+ subroutine LOOKUP_DES3_K_0D_(temp, desat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp  !< temperature
  real(kind=FMS_SVP_KIND_), intent(out) :: desat !< derivative of sat vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range
@@ -2607,7 +2607,7 @@
 
  end subroutine LOOKUP_DES3_K_0D_
 !#######################################################################
- subroutine LOOKUP_ES3_K_0D_(temp, esat, nbad)
+ subroutine LOOKUP_ES3_K_0D_(temp, esat, nbad) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in)     :: temp !< temperature
  real(kind=FMS_SVP_KIND_), intent(out)    :: esat !< saturation vapor pressure
  integer, intent(out)     :: nbad !< if temperature is out of range

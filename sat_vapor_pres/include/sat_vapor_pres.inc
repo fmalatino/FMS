@@ -25,7 +25,7 @@
 !   <OUT NAME="esat" UNITS="pascal" TYPE="real" DIM="(scalar)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES_0D_ ( temp, esat, err_msg )
+ subroutine LOOKUP_ES_0D_ ( temp, esat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat !< saturation vapor pressure
@@ -57,7 +57,7 @@
 !   <OUT NAME="esat" UNITS="pascal" TYPE="real" DIM="(:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES_1D_ ( temp, esat, err_msg )
+ subroutine LOOKUP_ES_1D_ ( temp, esat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp(:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat(:) !< saturation vapor pressure
@@ -93,7 +93,7 @@
 !   <OUT NAME="esat" UNITS="pascal" TYPE="real" DIM="(:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES_2D_ ( temp, esat, err_msg )
+ subroutine LOOKUP_ES_2D_ ( temp, esat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp(:,:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat(:,:) !< saturation vapor pressure
@@ -129,7 +129,7 @@
 !   <OUT NAME="esat" UNITS="pascal" TYPE="real" DIM="(:,:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES_3D_ ( temp, esat, err_msg )
+ subroutine LOOKUP_ES_3D_ ( temp, esat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp(:,:,:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat(:,:,:) !< saturation vapor pressure
@@ -162,7 +162,7 @@
 !   <OUT NAME="esat" UNITS="pascal" TYPE="real" DIM="(scalar)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES2_0D_ ( temp, esat, err_msg )
+ subroutine LOOKUP_ES2_0D_ ( temp, esat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat !< saturation vapor pressure
@@ -194,7 +194,7 @@
 !   <OUT NAME="esat" UNITS="pascal" TYPE="real" DIM="(:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES2_1D_ ( temp, esat, err_msg )
+ subroutine LOOKUP_ES2_1D_ ( temp, esat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp(:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat(:) !< saturation vapor pressure
@@ -230,7 +230,7 @@
 !   <OUT NAME="esat" UNITS="pascal" TYPE="real" DIM="(:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES2_2D_ ( temp, esat, err_msg )
+ subroutine LOOKUP_ES2_2D_ ( temp, esat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp(:,:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat(:,:) !< saturation vapor pressure
@@ -266,7 +266,7 @@
 !   <OUT NAME="esat" UNITS="pascal" TYPE="real" DIM="(:,:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES2_3D_ ( temp, esat, err_msg )
+ subroutine LOOKUP_ES2_3D_ ( temp, esat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp(:,:,:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat(:,:,:) !< saturation vapor pressure
@@ -299,7 +299,7 @@
 !   <OUT NAME="esat" UNITS="pascal" TYPE="real" DIM="(scalar)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES3_0D_ ( temp, esat, err_msg )
+ subroutine LOOKUP_ES3_0D_ ( temp, esat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat !< saturation vapor pressure
@@ -331,7 +331,7 @@
 !   <OUT NAME="esat" UNITS="pascal" TYPE="real" DIM="(:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES3_1D_ ( temp, esat, err_msg )
+ subroutine LOOKUP_ES3_1D_ ( temp, esat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp(:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat(:) !< saturation vapor pressure
@@ -367,7 +367,7 @@
 !   <OUT NAME="esat" UNITS="pascal" TYPE="real" DIM="(:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES3_2D_ ( temp, esat, err_msg )
+ subroutine LOOKUP_ES3_2D_ ( temp, esat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp(:,:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat(:,:) !< saturation vapor pressure
@@ -403,7 +403,7 @@
 !   <OUT NAME="esat" UNITS="pascal" TYPE="real" DIM="(:,:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES3_3D_ ( temp, esat, err_msg )
+ subroutine LOOKUP_ES3_3D_ ( temp, esat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp(:,:,:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat(:,:,:) !< saturation vapor pressure
@@ -439,7 +439,7 @@
 !   <OUT NAME="desat" UNITS="pascal" TYPE="real" DIM="(scalar)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_DES_0D_ ( temp, desat, err_msg )
+ subroutine LOOKUP_DES_0D_ ( temp, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: desat !< derivative of saturation vapor pressure
@@ -471,7 +471,7 @@
 !   <OUT NAME="desat" UNITS="pascal" TYPE="real" DIM="(:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_DES_1D_ ( temp, desat, err_msg )
+ subroutine LOOKUP_DES_1D_ ( temp, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp (:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: desat(:) !< derivative of saturation vapor pressure
@@ -508,7 +508,7 @@
 !   <OUT NAME="desat" UNITS="pascal" TYPE="real" DIM="(:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_DES_2D_ ( temp, desat, err_msg )
+ subroutine LOOKUP_DES_2D_ ( temp, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp (:,:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: desat(:,:) !< derivative of saturation vapor pressure
@@ -542,7 +542,7 @@
 !   <OUT NAME="desat" UNITS="pascal" TYPE="real" DIM="(:,:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_DES_3D_ ( temp, desat, err_msg )
+ subroutine LOOKUP_DES_3D_ ( temp, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp (:,:,:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: desat(:,:,:) !< derivative of saturation vapor pressure
@@ -574,7 +574,7 @@
 !   <OUT NAME="desat" UNITS="pascal" TYPE="real" DIM="(scalar)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_DES2_0D_ ( temp, desat, err_msg )
+ subroutine LOOKUP_DES2_0D_ ( temp, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: desat !< derivative of saturation vapor pressure
@@ -606,7 +606,7 @@
 !   <OUT NAME="desat" UNITS="pascal" TYPE="real" DIM="(:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_DES2_1D_ ( temp, desat, err_msg )
+ subroutine LOOKUP_DES2_1D_ ( temp, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp (:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: desat(:) !< derivative of saturation vapor pressure
@@ -643,7 +643,7 @@
 !   <OUT NAME="desat" UNITS="pascal" TYPE="real" DIM="(:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_DES2_2D_ ( temp, desat, err_msg )
+ subroutine LOOKUP_DES2_2D_ ( temp, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp (:,:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: desat(:,:) !< derivative of saturation vapor pressure
@@ -677,7 +677,7 @@
 !   <OUT NAME="desat" UNITS="pascal" TYPE="real" DIM="(:,:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_DES2_3D_ ( temp, desat, err_msg )
+ subroutine LOOKUP_DES2_3D_ ( temp, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp (:,:,:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: desat(:,:,:) !< derivative of saturation vapor pressure
@@ -709,7 +709,7 @@
 !   <OUT NAME="desat" UNITS="pascal" TYPE="real" DIM="(scalar)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_DES3_0D_ ( temp, desat, err_msg )
+ subroutine LOOKUP_DES3_0D_ ( temp, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: desat !< derivative of saturation vapor pressure
@@ -741,7 +741,7 @@
 !   <OUT NAME="desat" UNITS="pascal" TYPE="real" DIM="(:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_DES3_1D_ ( temp, desat, err_msg )
+ subroutine LOOKUP_DES3_1D_ ( temp, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp (:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: desat(:) !< derivative of saturation vapor pressure
@@ -778,7 +778,7 @@
 !   <OUT NAME="desat" UNITS="pascal" TYPE="real" DIM="(:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_DES3_2D_ ( temp, desat, err_msg )
+ subroutine LOOKUP_DES3_2D_ ( temp, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp (:,:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: desat(:,:) !< derivative of saturation vapor pressure
@@ -812,7 +812,7 @@
 !   <OUT NAME="desat" UNITS="pascal" TYPE="real" DIM="(:,:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_DES3_3D_ ( temp, desat, err_msg )
+ subroutine LOOKUP_DES3_3D_ ( temp, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp (:,:,:) !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: desat(:,:,:) !< derivative of saturation vapor pressure
@@ -848,7 +848,7 @@
 !   <OUT NAME="desat" UNITS="pascal / degree" TYPE="real" DIM="(scalar)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES_DES_0D_ ( temp, esat, desat, err_msg )
+ subroutine LOOKUP_ES_DES_0D_ ( temp, esat, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat  !< saturation vapor pressure
@@ -882,7 +882,7 @@
 !   <OUT NAME="desat" UNITS="pascal / degree" TYPE="real" DIM="(:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES_DES_1D_ ( temp, esat, desat, err_msg )
+ subroutine LOOKUP_ES_DES_1D_ ( temp, esat, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), dimension(:), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), dimension(:), intent(out) :: esat  !< saturation vapor pressure
@@ -917,7 +917,7 @@
 !   <OUT NAME="desat" UNITS="pascal / degree" TYPE="real" DIM="(:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES_DES_2D_ ( temp, esat, desat, err_msg )
+ subroutine LOOKUP_ES_DES_2D_ ( temp, esat, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), dimension(:,:), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), dimension(:,:), intent(out) :: esat  !< saturation vapor pressure
@@ -952,7 +952,7 @@
 !   <OUT NAME="desat" UNITS="pascal / degree" TYPE="real" DIM="(:,:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES_DES_3D_ ( temp, esat, desat, err_msg )
+ subroutine LOOKUP_ES_DES_3D_ ( temp, esat, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), dimension(:,:,:), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), dimension(:,:,:), intent(out) :: esat  !< saturation vapor pressure
@@ -988,7 +988,7 @@
 !   <OUT NAME="desat" UNITS="pascal / degree" TYPE="real" DIM="(scalar)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES2_DES2_0D_ ( temp, esat, desat, err_msg )
+ subroutine LOOKUP_ES2_DES2_0D_ ( temp, esat, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat  !< saturation vapor pressure
@@ -1022,7 +1022,7 @@
 !   <OUT NAME="desat" UNITS="pascal / degree" TYPE="real" DIM="(:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES2_DES2_1D_ ( temp, esat, desat, err_msg )
+ subroutine LOOKUP_ES2_DES2_1D_ ( temp, esat, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), dimension(:), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), dimension(:), intent(out) :: esat  !< saturation vapor pressure
@@ -1057,7 +1057,7 @@
 !   <OUT NAME="desat" UNITS="pascal / degree" TYPE="real" DIM="(:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES2_DES2_2D_ ( temp, esat, desat, err_msg )
+ subroutine LOOKUP_ES2_DES2_2D_ ( temp, esat, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), dimension(:,:), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), dimension(:,:), intent(out) :: esat  !< saturation vapor pressure
@@ -1092,7 +1092,7 @@
 !   <OUT NAME="desat" UNITS="pascal / degree" TYPE="real" DIM="(:,:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES2_DES2_3D_ ( temp, esat, desat, err_msg )
+ subroutine LOOKUP_ES2_DES2_3D_ ( temp, esat, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), dimension(:,:,:), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), dimension(:,:,:), intent(out) :: esat  !< saturation vapor pressure
@@ -1129,7 +1129,7 @@
 !   <OUT NAME="desat" UNITS="pascal / degree" TYPE="real" DIM="(scalar)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES3_DES3_0D_ ( temp, esat, desat, err_msg )
+ subroutine LOOKUP_ES3_DES3_0D_ ( temp, esat, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(out) :: esat  !< saturation vapor pressure
@@ -1163,7 +1163,7 @@
 !   <OUT NAME="desat" UNITS="pascal / degree" TYPE="real" DIM="(:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES3_DES3_1D_ ( temp, esat, desat, err_msg )
+ subroutine LOOKUP_ES3_DES3_1D_ ( temp, esat, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), dimension(:), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), dimension(:), intent(out) :: esat  !< saturation vapor pressure
@@ -1198,7 +1198,7 @@
 !   <OUT NAME="desat" UNITS="pascal / degree" TYPE="real" DIM="(:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES3_DES3_2D_ ( temp, esat, desat, err_msg )
+ subroutine LOOKUP_ES3_DES3_2D_ ( temp, esat, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), dimension(:,:), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), dimension(:,:), intent(out) :: esat  !< saturation vapor pressure
@@ -1233,7 +1233,7 @@
 !   <OUT NAME="desat" UNITS="pascal / degree" TYPE="real" DIM="(:,:,:)"></OUT>
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
- subroutine LOOKUP_ES3_DES3_3D_ ( temp, esat, desat, err_msg )
+ subroutine LOOKUP_ES3_DES3_3D_ ( temp, esat, desat, err_msg ) bind(c)
 
  real(kind=FMS_SVP_KIND_), dimension(:,:,:), intent(in)  :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), dimension(:,:,:), intent(out) :: esat  !< saturation vapor pressure
@@ -1273,7 +1273,7 @@
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
  subroutine COMPUTE_QS_0D_ ( temp, press, qsat, q, hc, dqsdT, esat, &
-                            err_msg, es_over_liq, es_over_liq_and_ice )
+                            err_msg, es_over_liq, es_over_liq_and_ice ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)    :: temp  !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(in)    :: press !< pressure
@@ -1339,7 +1339,7 @@
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
  subroutine COMPUTE_QS_1D_ ( temp, press, qsat, q, hc, dqsdT, esat, &
-                            err_msg, es_over_liq, es_over_liq_and_ice )
+                            err_msg, es_over_liq, es_over_liq_and_ice ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)   :: temp(:)   !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(in)   :: press(:)  !< pressure
@@ -1407,7 +1407,7 @@
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
  subroutine COMPUTE_QS_2D_ ( temp, press, qsat, q, hc, dqsdT, esat, &
-                            err_msg, es_over_liq, es_over_liq_and_ice )
+                            err_msg, es_over_liq, es_over_liq_and_ice ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)   :: temp(:,:)   !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(in)   :: press(:,:)  !< pressure
@@ -1474,7 +1474,7 @@
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
  subroutine COMPUTE_QS_3D_ ( temp, press, qsat, q, hc, dqsdT, esat, &
-                            err_msg, es_over_liq, es_over_liq_and_ice )
+                            err_msg, es_over_liq, es_over_liq_and_ice ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)   :: temp(:,:,:)   !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(in)   :: press(:,:,:)  !< pressure
@@ -1543,7 +1543,7 @@
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
  subroutine COMPUTE_MRS_0D_ ( temp, press, mrsat, mr, hc, dmrsdT, esat, &
-                            err_msg, es_over_liq, es_over_liq_and_ice )
+                            err_msg, es_over_liq, es_over_liq_and_ice ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)   :: temp   !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(in)   :: press  !< pressure
@@ -1609,7 +1609,7 @@
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
  subroutine COMPUTE_MRS_1D_ ( temp, press, mrsat, mr, hc, dmrsdT, esat,&
-                            err_msg, es_over_liq, es_over_liq_and_ice )
+                            err_msg, es_over_liq, es_over_liq_and_ice ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)   :: temp(:)   !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(in)   :: press(:)  !< pressure
@@ -1677,7 +1677,7 @@
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
  subroutine COMPUTE_MRS_2D_ ( temp, press, mrsat, mr, hc, dmrsdT, esat,&
-                            err_msg, es_over_liq, es_over_liq_and_ice )
+                            err_msg, es_over_liq, es_over_liq_and_ice ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)   :: temp(:,:)   !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(in)   :: press(:,:)  !< pressure
@@ -1745,7 +1745,7 @@
 !   <OUT NAME="err_msg" TYPE="character">  </OUT>
 ! </SUBROUTINE>
  subroutine COMPUTE_MRS_3D_ ( temp, press, mrsat, mr, hc, dmrsdT, esat,&
-                            err_msg, es_over_liq, es_over_liq_and_ice )
+                            err_msg, es_over_liq, es_over_liq_and_ice ) bind(c)
 
  real(kind=FMS_SVP_KIND_), intent(in)   :: temp(:,:,:)    !< temperature in degrees Kelvin (K)
  real(kind=FMS_SVP_KIND_), intent(in)   :: press(:,:,:)   !< pressure
@@ -1803,7 +1803,7 @@
 
 !#######################################################################
 
- function CHECK_1D_ ( temp ) result ( nbad )
+ function CHECK_1D_ ( temp ) result ( nbad ) bind(c)
  real(kind=FMS_SVP_KIND_)   , intent(in)  :: temp(:) !< temperature in degrees Kelvin (K)
  integer :: nbad, ind, i
 
@@ -1827,7 +1827,7 @@
 
 !------------------------------------------------
 
- function CHECK_2D_ ( temp ) result ( nbad )
+ function CHECK_2D_ ( temp ) result ( nbad ) bind(c)
  real(kind=FMS_SVP_KIND_)   , intent(in)  :: temp(:,:) !< temperature in degrees Kelvin (K)
  integer :: nbad
  integer :: j
@@ -1840,7 +1840,7 @@
 
 !#######################################################################
 
- subroutine TEMP_CHECK_1D_ ( temp )
+ subroutine TEMP_CHECK_1D_ ( temp ) bind(c)
  real(kind=FMS_SVP_KIND_)   , intent(in) :: temp(:) !< temperature in degrees Kelvin (K)
  integer :: i, iunit
 
@@ -1851,7 +1851,7 @@
 
 !--------------------------------------------------------------
 
- subroutine TEMP_CHECK_2D_ ( temp )
+ subroutine TEMP_CHECK_2D_ ( temp ) bind(c)
  real(kind=FMS_SVP_KIND_)   , intent(in) :: temp(:,:) !< temperature in degrees Kelvin (K)
  integer :: i, j, iunit
 
@@ -1863,7 +1863,7 @@
 
 !--------------------------------------------------------------
 
- subroutine TEMP_CHECK_3D_ ( temp )
+ subroutine TEMP_CHECK_3D_ ( temp ) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp(:,:,:) !< temperature in degrees Kelvin (K)
  integer :: i, j, k, iunit
 
@@ -1876,7 +1876,7 @@
 
 !#######################################################################
 
- subroutine SHOW_ALL_BAD_0D_ ( temp )
+ subroutine SHOW_ALL_BAD_0D_ ( temp ) bind(c)
  real(kind=FMS_SVP_KIND_)   , intent(in) :: temp !< temperature in degrees Kelvin (K)
  integer :: ind, iunit
  !> DTINV, TMIN, TEPS are module level variables declared in r8_kind
@@ -1899,7 +1899,7 @@
 
 !--------------------------------------------------------------
 
- subroutine SHOW_ALL_BAD_1D_ ( temp )
+ subroutine SHOW_ALL_BAD_1D_ ( temp ) bind(c)
  real(kind=FMS_SVP_KIND_)   , intent(in) :: temp(:) !< temperature in degrees Kelvin (K)
  integer :: i, ind, iunit
  !> DTINV, TMIN, TEPS are module level variables declared in r8_kind
@@ -1924,7 +1924,7 @@
 
 !--------------------------------------------------------------
 
- subroutine SHOW_ALL_BAD_2D_ ( temp )
+ subroutine SHOW_ALL_BAD_2D_ ( temp ) bind(c)
  real(kind=FMS_SVP_KIND_)   , intent(in) :: temp(:,:) !< temperature in degrees Kelvin (K)
  integer :: i, j, ind, iunit
  !> DTINV, TMIN, TEPS are module level variables declared in r8_kind
@@ -1951,7 +1951,7 @@
 
 !--------------------------------------------------------------
 
- subroutine SHOW_ALL_BAD_3D_ ( temp )
+ subroutine SHOW_ALL_BAD_3D_ ( temp ) bind(c)
  real(kind=FMS_SVP_KIND_), intent(in)  :: temp(:,:,:) !< temperature in degrees Kelvin (K)
  integer :: i, j, k, ind, iunit
  !> DTINV, TMIN, TEPS are module level variables declared in r8_kind

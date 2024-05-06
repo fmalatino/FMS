@@ -178,7 +178,7 @@ module time_interp_external2_mod
 ! </DESCRIPTION>
 !
     !> @brief Initialize the @ref time_interp_external_mod module
-    subroutine time_interp_external_init()
+    subroutine time_interp_external_init() bind(c)
 
       integer :: io_status, logunit, ierr
 
@@ -927,7 +927,7 @@ subroutine load_record_0d(field, rec)
 end subroutine load_record_0d
 
 !> Reallocates src_data for field from module level loaded_fields array
-subroutine reset_src_data_region(index, is, ie, js, je)
+subroutine reset_src_data_region(index, is, ie, js, je) bind(c)
    integer, intent(in) :: index
    integer, intent(in) :: is, ie, js, je
    integer             :: nk, nbuf
@@ -949,7 +949,7 @@ subroutine reset_src_data_region(index, is, ie, js, je)
 
 end subroutine reset_src_data_region
 
-subroutine set_override_region(index, region_type, is_region, ie_region, js_region, je_region)
+subroutine set_override_region(index, region_type, is_region, ie_region, js_region, je_region) bind(c)
    integer, intent(in) :: index, region_type
    integer, intent(in) :: is_region, ie_region, js_region, je_region
 
@@ -964,7 +964,7 @@ subroutine set_override_region(index, region_type, is_region, ie_region, js_regi
 end subroutine set_override_region
 
 !> reallocates array of fields, increasing its size
-subroutine realloc_files(n)
+subroutine realloc_files(n) bind(c)
   integer, intent(in) :: n ! new size
 
   type(filetype), pointer :: ptr(:)
@@ -992,7 +992,7 @@ subroutine realloc_files(n)
 end subroutine realloc_files
 
 !> reallocates array of fields,increasing its size
-subroutine realloc_fields(n)
+subroutine realloc_fields(n) bind(c)
   integer, intent(in) :: n ! new size
 
   type(ext_fieldtype), pointer :: ptr(:)
@@ -1035,7 +1035,7 @@ end subroutine realloc_fields
 
 !> simple linear search for given value in given list
 !! TODO should use better search if this list is bigger
-function find_buf_index(indx,buf)
+function find_buf_index(indx,buf) bind(c)
    integer :: indx
    integer, dimension(:) :: buf
    integer :: find_buf_index
@@ -1075,7 +1075,7 @@ function get_external_field_size(index)
 end function get_external_field_size
 
 !> return missing value
-function get_external_field_missing(index)
+function get_external_field_missing(index) bind(c)
 
     integer :: index !< returned from previous call to init_external_field.
     real(r8_kind) :: get_external_field_missing
@@ -1105,7 +1105,7 @@ end subroutine
 
 !> exit time_interp_external_mod.  Close all open files and
 !! release storage
-subroutine time_interp_external_exit()
+subroutine time_interp_external_exit() bind(c)
 
     integer :: i
     !
