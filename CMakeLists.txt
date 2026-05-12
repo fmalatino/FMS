@@ -18,7 +18,7 @@
 
 # Copyright (c) GFDL, @underwoo
 
-cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.22 FATAL_ERROR)
 
 # Define the CMake project
 project(FMS
@@ -26,7 +26,7 @@ project(FMS
   DESCRIPTION  "GFDL FMS Library"
   HOMEPAGE_URL "https://www.gfdl.noaa.gov/fms"
   LANGUAGES C Fortran)
-
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include(GNUInstallDirs)
 
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo|MinSizeRel|DebugUFS|ReleaseUFS)$")
@@ -64,6 +64,13 @@ option(ENABLE_QUAD_PRECISION "Enable compiler definition -DENABLE_QUAD_PRECISION
 option(PORTABLE_KINDS        "Enable compiler definition -DPORTABLE_KINDS"        OFF)
 option(GFS_PHYS              "Enable compiler definition -DGFS_PHYS"              OFF)
 option(WITH_YAML             "Enable compiler definition -Duse_yaml"              OFF)
+
+if(CMAKE_Fortran_COMPILER_ID MATCHES "NVHPC")
+  set(ENABLE_QUAD_PRECISION OFF)
+  message(WARNING "NVHPC does not support building FMS with QUAD_PRECISION!")
+endif()
+# Testing-specific options
+set(OVERSUBSCRIBE_FLAG " --oversubscribe " CACHE STRING "Flag for mpirun to use more cores than available")
 
 if(32BIT)
   list(APPEND kinds "r4")
@@ -179,6 +186,7 @@ list(APPEND fms_fortran_src_files
   mpp/mpp_memutils.F90
   mpp/mpp_parameter.F90
   mpp/mpp_utilities.F90
+  mpp/gfdl_nompi_f08.F90
   offloading/offloading_io.F90
   offloading/metadata_transfer.F90
   parser/yaml_parser.F90
@@ -328,6 +336,7 @@ foreach(kind ${kinds})
                                                  mosaic2/include
                                                  constants
                                                  astronomy/include
+                                                 field_manager/
                                                  field_manager/include
                                                  time_interp/include
                                                  tracer_manager/include
@@ -585,6 +594,9 @@ include(CTest)
 set(MPI_LAUNCHER "mpirun")
 # used in the test-lib.sh.in to make it behave differently when parsed by cmake
 set(USING_CMAKE "true")
+set(OVERSUBSCRIBE "${OVERSUBSCRIBE_FLAG}")
+message(STATUS "Using '${OVERSUBSCRIBE}' flag to oversubscribe ranks in test scripts")
+
 # set the fms library to link tests with based on whats built
 if(NOT kinds)
   set(fmsLibraryName FMS::fms)
@@ -716,6 +728,7 @@ if(UNIT_TESTS)
     test_fms/mpp/test_mpp_domains.F90
     test_fms/mpp/test_mpp.F90
     test_fms/mpp/test_mpp_gatscat.F90
+    test_fms/mpp/test_mpp_pelist_gatscat_gen_ind.F90
     test_fms/mpp/test_mpp_get_ascii_lines.F90
     test_fms/mpp/test_mpp_global_field_ug.F90
     test_fms/mpp/test_mpp_global_sum_ad.F90
@@ -879,40 +892,40 @@ if(UNIT_TESTS)
     get_filename_component (TName ${testFile} NAME_WE)
 
     add_executable(${TName}_r8 ${testFile})
-    target_compile_definitions(${TName}_r8 PRIVATE "${r8_defs}")
+    target_compile_definitions(${TName}_r8 PRIVATE "${r8_defs} ${fms_defs}")
     set_target_properties(${TName}_r8 PROPERTIES COMPILE_FLAGS ${r8_flags})
-    target_link_libraries(${TName}_r8 PUBLIC FMS::fms
+    target_link_libraries(${TName}_r8 PUBLIC ${fmsLibraryName}
                                       PRIVATE testLibs
                                       )
 
     add_executable(${TName}_r4 ${testFile})
-    target_compile_definitions(${TName}_r4 PRIVATE "${r4_defs}")
+    target_compile_definitions(${TName}_r4 PRIVATE "${r4_defs} ${fms_defs}")
     # seems counterintuitive but r4 tests use r8 default
     # they specify kind values explicitly with the preprocessor where needed (TEST_FMS_KIND_)
     set_target_properties(${TName}_r4 PROPERTIES COMPILE_FLAGS ${r8_flags})
-    target_link_libraries(${TName}_r4 PUBLIC FMS::fms
+    target_link_libraries(${TName}_r4 PUBLIC ${fmsLibraryName}
                                       PRIVATE testLibs
                                       )
 
     add_executable(${TName}_i8 ${testFile})
-    target_compile_definitions(${TName}_i8 PRIVATE "${r8_defs}")
+    target_compile_definitions(${TName}_i8 PRIVATE "${r8_defs} ${fms_defs}")
     set_target_properties(${TName}_i8 PROPERTIES COMPILE_FLAGS ${r8_flags})
-    target_link_libraries(${TName}_i8 PUBLIC FMS::fms
+    target_link_libraries(${TName}_i8 PUBLIC ${fmsLibraryName}
                                       PRIVATE testLibs
                                       )
 
     add_executable(${TName}_i4 ${testFile})
-    target_compile_definitions(${TName}_i4 PRIVATE "${r8_defs}")
+    target_compile_definitions(${TName}_i4 PRIVATE "${r8_defs} ${fms_defs}")
     set_target_properties(${TName}_i4 PROPERTIES COMPILE_FLAGS ${r8_flags})
-    target_link_libraries(${TName}_i4 PUBLIC FMS::fms
+    target_link_libraries(${TName}_i4 PUBLIC ${fmsLibraryName}
                                       PRIVATE testLibs
                                       )
 
     if(WITH_YAML)
-      target_link_libraries(${TName}_r4 PRIVATE yaml ${LIBYAML_LIBRARIES})
-      target_link_libraries(${TName}_r8 PRIVATE yaml ${LIBYAML_LIBRARIES})
-      target_link_libraries(${TName}_i4 PRIVATE yaml ${LIBYAML_LIBRARIES})
-      target_link_libraries(${TName}_i8 PRIVATE yaml ${LIBYAML_LIBRARIES})
+      target_link_libraries(${TName}_r4 PRIVATE PkgConfig::YAML)
+      target_link_libraries(${TName}_r8 PRIVATE PkgConfig::YAML)
+      target_link_libraries(${TName}_i4 PRIVATE PkgConfig::YAML)
+      target_link_libraries(${TName}_i8 PRIVATE PkgConfig::YAML)
     endif()
 
     if(OPENMP)
