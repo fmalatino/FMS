@@ -52,6 +52,9 @@ integer, allocatable, dimension(:)    :: all_pelist       !< List of pelist asso
 integer                               :: n                !< No description
 type(atm_type)                        :: atm              !< No description
 
+integer                               :: i, j
+character(len=20)                     :: base_name, full_name, int_str
+
 !namelist variables
 logical :: ignore_checksum = .false.
 logical :: bad_checksum = .false.
@@ -63,12 +66,14 @@ call fms2_io_init
 read(input_nml_file, nml=test_bc_restart_nml, iostat=io)
 ierr = check_nml_error(io, 'test_bc_restart_nml')
 
-nlon = 144
-nlat = 144
+nlon = 24
+nlat = 24
 
 call mpp_define_domains( (/1,nlon,1,nlat/), layout, atm%Domain, xhalo=3, yhalo=3, symmetry=.true., &
                        &  name='test_bc_restart')
 call mpp_get_data_domain(atm%domain, isd, ied, jsd, jed )
+
+! print *, mpp_pe(), isd, ied, jsd, jed
 
 allocate(atm%var2d(isd:ied,jsd:jed))
 allocate(atm%var3d(isd:ied,jsd:jed,5))
@@ -119,17 +124,41 @@ atm%BCfile_ne_open = open_file(atm%fileobj_ne, "BCfile_ne.nc", "read", is_restar
 
 call register_bcs(atm, atm%fileobj_ne, atm%fileobj_sw, "sst", layout)
 
+! print *, mpp_pe(), atm%fileobj_sw%restart_vars(1)%bc_info%indices(3)
+
 if (atm%BCfile_sw_open) then
     call read_restart_bc(atm%fileobj_sw, ignore_checksum = ignore_checksum)
     call close_file(atm%fileobj_sw)
 endif
+
+! write(int_str, '(I0)') mpp_pe()
+! base_name = "bc_2d_matrix_"
+! full_name = trim(base_name) // trim(int_str) // ".txt"
+! open(unit=mpp_pe(), file=full_name, status="replace", action="write")
+! write( mpp_pe() , "(*(g0))" ) ( (atm%var2d(i,j)," ",i=isd,ied), new_line("A"), j=jsd,jed )
+! close(mpp_pe())
 
 if (atm%BCfile_ne_open) then
     call read_restart_bc(atm%fileobj_ne)
     call close_file(atm%fileobj_ne)
 endif
 
+! write(int_str, '(I0)') mpp_pe()
+! base_name = "bc_2d_matrix_"
+! full_name = trim(base_name) // trim(int_str) // ".txt"
+! open(unit=mpp_pe(), file=full_name, status="replace", action="write")
+! write( mpp_pe() , "(*(g0))" ) ( (atm%var2d(i,j)," ",i=isd,ied), new_line("A"), j=jsd,jed )
+! close(mpp_pe())
+
 call mpp_sync()
+
+write(int_str, '(I0)') mpp_pe()
+base_name = "bc_2d_matrix_"
+full_name = trim(base_name) // trim(int_str) // ".txt"
+open(unit=mpp_pe(), file=full_name, status="replace", action="write")
+write( mpp_pe() , "(*(g0))" ) ( (atm%var2d(i,j)," ",i=isd,ied), new_line("A"), j=jsd,jed )
+close(mpp_pe())
+
 call mpp_exit()
 
 contains
@@ -217,6 +246,8 @@ subroutine register_bcs(atm, fileobj_ne, fileobj_sw, var_name, layout, istag, js
   indices(4) = jed + j_stag
   global_size(1) = x_halo
   global_size(2) = npy-1+2*y_halo + j_stag
+
+  print *, global_size(1), global_size(2)
 
   global_size(3) = size(atm%var3d, 3)
 
